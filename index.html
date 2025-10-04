@@ -25,6 +25,10 @@
       font-weight: bold;
       font-size: 1.2em;
       color: #7f4e00;
+      position: fixed;
+      height: 100vh;
+      top: 0;
+      left: 0;
     }
     nav a {
       color: #7f4e00;
@@ -39,6 +43,7 @@
       color: white;
     }
     main {
+      margin-left: 220px;
       flex: 1;
       padding: 40px;
       box-sizing: border-box;
@@ -46,90 +51,106 @@
       overflow-y: auto;
     }
     h1 {
-      font-size: 3em;
+      font-size: 4em;
       color: #f57c00;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
-    .description, .proposition, .ebooks-section, .contact-section {
-      margin-bottom: 40px;
-      font-size: 1.15em;
+    .description, .proposition {
+      font-size: 1.3em;
+      margin-bottom: 30px;
+      max-width: 800px;
       line-height: 1.6;
     }
+    .ebooks-section {
+      margin-top: 50px;
+    }
     .ebooks-section h2 {
-      font-size: 2em;
-      margin-bottom: 20px;
+      font-size: 2.5em;
       color: #f57c00;
+      margin-bottom: 20px;
     }
     .ebooks-container {
       display: flex;
-      gap: 20px;
+      gap: 25px;
       flex-wrap: wrap;
+      max-width: 1000px;
     }
     .ebook {
       background-color: #fff7e6;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      padding: 20px;
-      flex: 1 1 250px;
+      border-radius: 15px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      padding: 25px;
+      flex: 1 1 220px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.3s ease;
       cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .ebook:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 12px rgba(0,0,0,0.25);
+      transform: translateY(-7px);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.25);
     }
     .ebook h3 {
       margin-top: 0;
+      font-size: 1.5em;
       color: #f57c00;
-      font-size: 1.4em;
+      margin-bottom: 12px;
     }
     .ebook p {
       flex-grow: 1;
-      margin-bottom: 15px;
       color: #6e4b00;
+      font-size: 1.1em;
+      margin-bottom: 18px;
     }
     .ebook a {
-      align-self: flex-start;
+      text-decoration: none;
       background-color: #ff9800;
       color: white;
-      text-decoration: none;
-      padding: 10px 15px;
-      border-radius: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
       font-weight: bold;
+      text-align: center;
       transition: background-color 0.3s ease;
     }
     .ebook a:hover {
       background-color: #ef6c00;
     }
-    .contact-section h2 {
-      font-size: 2em;
-      margin-bottom: 15px;
-      color: #f57c00;
-    }
-    .contact-section p {
+    .contact-section {
+      margin-top: 60px;
       font-size: 1.2em;
       color: #7f4e00;
+      max-width: 600px;
+    }
+    .contact-section a {
+      color: #f57c00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contact-section a:hover {
+      text-decoration: underline;
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
+    @media (max-width: 900px) {
       nav {
+        position: relative;
         width: 100%;
+        height: auto;
         flex-direction: row;
         justify-content: center;
-        gap: 30px;
+        padding: 15px 0;
+      }
+      nav a {
+        padding: 8px 15px;
       }
       main {
+        margin-left: 0;
         padding: 20px;
       }
       .ebooks-container {
         flex-direction: column;
+        gap: 20px;
       }
     }
   </style>
