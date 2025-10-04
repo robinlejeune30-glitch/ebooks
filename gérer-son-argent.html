@@ -3,163 +3,233 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gérer son argent comme un pro - Ebook complet</title>
+  <title>📊 Gérer son argent comme un pro - Guide Complet</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #fffdf7;
-      color: #333;
+      background: #fff9f0;
+      color: #34495e;
       max-width: 900px;
       margin: auto;
-      padding: 30px 20px;
+      padding: 40px 20px;
       line-height: 1.7;
     }
     h1 {
-      color: #e67e22;
+      color: #2980b9;
       font-size: 3em;
-      margin-bottom: 10px;
+      margin-bottom: 0.2em;
+      font-weight: bold;
     }
     h2 {
       margin-top: 40px;
-      color: #f39c12;
-      font-size: 2em;
+      color: #3498db;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 8px;
     }
     h3 {
+      color: #2c3e50;
       margin-top: 25px;
-      color: #d35400;
     }
     p {
-      margin-bottom: 15px;
-      font-size: 1.1em;
+      margin-top: 12px;
+      font-size: 1.1rem;
     }
     ul {
-      margin-left: 20px;
-      margin-bottom: 20px;
+      margin-top: 12px;
+      margin-left: 25px;
     }
-    li {
-      margin-bottom: 8px;
-      font-size: 1.1em;
+    ul li {
+      margin-bottom: 10px;
+      font-size: 1.05rem;
     }
-    .example {
-      background: #fff3e0;
-      border-left: 5px solid #f39c12;
-      padding: 15px 20px;
-      margin: 20px 0;
-      font-style: italic;
-      color: #b35800;
-      border-radius: 6px;
+    a {
+      color: #2980b9;
+      text-decoration: none;
     }
-    a.back {
+    a:hover {
+      text-decoration: underline;
+    }
+    .back {
       display: inline-block;
       margin-bottom: 30px;
-      background: #e67e22;
+      background: #2980b9;
       color: white;
       padding: 10px 15px;
-      border-radius: 6px;
+      border-radius: 7px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
       transition: background-color 0.3s ease;
     }
-    a.back:hover {
-      background-color: #cf6f12;
+    .back:hover {
+      background-color: #1f5f8b;
+    }
+    blockquote {
+      margin: 25px 0;
+      padding-left: 20px;
+      border-left: 5px solid #3498db;
+      color: #21618c;
+      font-style: italic;
+      background: #d6eaf8;
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #2980b9;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+    @media(max-width: 600px) {
+      body {
+        padding: 20px 10px;
+      }
+      h1 {
+        font-size: 2.2em;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
     }
   </style>
 </head>
 <body>
 
-  <a href="index.html" class="back">← Retour à la page d'accueil</a>
+  <a class="back" href="index.html">← Retour à la page d'accueil</a>
 
-  <h1>Gérer son argent comme un pro</h1>
-
+  <h1>📊 Gérer son argent comme un pro</h1>
   <p><strong>Par Robin Lejeune</strong></p>
 
-  <h2>Sommaire</h2>
+  <h2>📝 Sommaire</h2>
   <ol>
-    <li>Comprendre ses finances personnelles</li>
-    <li>Établir un budget efficace</li>
-    <li>Économiser intelligemment</li>
-    <li>Réduire ses dettes</li>
-    <li>Investir pour faire fructifier son argent</li>
-    <li>Les erreurs courantes à éviter</li>
-    <li>Conseils pratiques au quotidien</li>
+    <li><a href="#intro">Introduction : l’importance d’une bonne gestion</a></li>
+    <li><a href="#revenus">Comprendre ses revenus et ses dépenses</a></li>
+    <li><a href="#budget">Établir un budget efficace</a></li>
+    <li><a href="#epargne">Épargner intelligemment</a></li>
+    <li><a href="#dettes">Gérer et réduire ses dettes</a></li>
+    <li><a href="#objectifs">Planifier ses objectifs financiers</a></li>
+    <li><a href="#investir">Investir avec une base saine</a></li>
+    <li><a href="#automatiser">Automatiser ses finances</a></li>
+    <li><a href="#psychologie">Pièges psychologiques à éviter</a></li>
+    <li><a href="#exemples">Exemples concrets & études de cas</a></li>
+    <li><a href="#outils">Outils et ressources recommandés</a></li>
+    <li><a href="#conclusion">Conclusion & plan d’action</a></li>
   </ol>
 
-  <h2>1. Comprendre ses finances personnelles</h2>
-  <p>Avant de gérer efficacement son argent, il est essentiel de comprendre où il va. Il faut analyser ses revenus, ses dépenses fixes et variables, ainsi que ses habitudes de consommation.</p>
-  <p>Voici quelques étapes simples :</p>
+  <h2 id="intro">1. Introduction : l’importance d’une bonne gestion</h2>
+  <p>Bien gérer son argent est la première étape pour atteindre la liberté financière. C’est la base sur laquelle tout repose, que ce soit pour épargner, investir, ou réaliser ses projets.</p>
+  <blockquote>“Un bon gestionnaire d’argent construit sa richesse, pas l’inverse.”</blockquote>
+
+  <h2 id="revenus">2. Comprendre ses revenus et ses dépenses</h2>
+  <p>Il faut commencer par savoir d’où vient l’argent et où il part :</p>
   <ul>
-    <li>Lister toutes vos sources de revenus : salaire, revenus complémentaires, aides éventuelles.</li>
-    <li>Recenser toutes vos dépenses mensuelles : loyer, factures, alimentation, loisirs, abonnements.</li>
-    <li>Utiliser une application ou un tableau Excel pour suivre tout ça facilement.</li>
+    <li>Revenus fixes (salaire, pensions)</li>
+    <li>Revenus variables (bonus, activités secondaires)</li>
+    <li>Dépenses fixes (loyer, abonnements, crédits)</li>
+    <li>Dépenses variables (alimentation, loisirs, vêtements)</li>
+  </ul>
+  <p>Tenir un carnet ou utiliser une application permet d’avoir une vision claire.</p>
+
+  <h2 id="budget">3. Établir un budget efficace</h2>
+  <p>Un budget doit être réaliste et flexible :</p>
+  <ul>
+    <li>Allouer une part pour les besoins essentiels (50% recommandé)</li>
+    <li>Épargne et investissements (20% minimum)</li>
+    <li>Dépenses personnelles et loisirs (30%)</li>
+  </ul>
+  <p><em>Exemple :</em> Sur un salaire net de 2000€, cela donne :</p>
+  <table>
+    <tr><th>Catégorie</th><th>Montant (€)</th></tr>
+    <tr><td>Besoins essentiels</td><td>1000</td></tr>
+    <tr><td>Épargne/investissements</td><td>400</td></tr>
+    <tr><td>Loisirs/dépenses personnelles</td><td>600</td></tr>
+  </table>
+
+  <h2 id="epargne">4. Épargner intelligemment</h2>
+  <p>Épargner n’est pas simplement mettre de l’argent de côté, c’est construire un filet de sécurité :</p>
+  <ul>
+    <li>Fonds d’urgence : au moins 3 à 6 mois de dépenses</li>
+    <li>Épargne de projets à court terme (vacances, achat)</li>
+    <li>Épargne long terme (retraite, investissement)</li>
+  </ul>
+  <p>Automatise tes virements pour ne pas y penser.</p>
+
+  <h2 id="dettes">5. Gérer et réduire ses dettes</h2>
+  <p>Les dettes peuvent freiner la progression :</p>
+  <ul>
+    <li>Priorise le remboursement des dettes à taux élevés</li>
+    <li>Évite les crédits à la consommation non nécessaires</li>
+    <li>Envisage le regroupement de crédits pour réduire les mensualités</li>
+  </ul>
+  <p>Chaque euro économisé sur les intérêts est un euro gagné.</p>
+
+  <h2 id="objectifs">6. Planifier ses objectifs financiers</h2>
+  <p>Fixe-toi des objectifs SMART (Spécifiques, Mesurables, Atteignables, Réalistes, Temporels) :</p>
+  <ul>
+    <li>Exemple : épargner 3000€ en un an pour un projet</li>
+    <li>Écrire ses objectifs augmente la motivation</li>
   </ul>
 
-  <div class="example">
-    Exemple : Julie gagne 2500€ par mois. Ses dépenses fixes sont : 800€ de loyer, 150€ d’électricité, 200€ d’alimentation, 100€ abonnements, 200€ loisirs. En suivant ses dépenses, elle remarque qu’elle dépense 250€ par mois en cafés et sorties non planifiés.
-  </div>
-
-  <h2>2. Établir un budget efficace</h2>
-  <p>Le budget est la base d'une bonne gestion. Voici la méthode 50/30/20 qui fonctionne bien :</p>
+  <h2 id="investir">7. Investir avec une base saine</h2>
+  <p>Avant d’investir, assure-toi d’avoir :</p>
   <ul>
-    <li>50% pour les besoins essentiels (logement, alimentation, factures)</li>
-    <li>30% pour les envies (sorties, achats non essentiels)</li>
-    <li>20% pour l’épargne et le remboursement des dettes</li>
+    <li>Un fonds d’urgence constitué</li>
+    <li>Un budget équilibré</li>
+    <li>Des objectifs clairs</li>
   </ul>
-  <p>Il est important d'adapter cette méthode selon ta situation personnelle.</p>
+  <p>Investir trop tôt sans sécurité peut coûter cher.</p>
 
-  <div class="example">
-    Exemple : Avec un revenu mensuel de 2500€, Julie devra consacrer 1250€ aux besoins, 750€ aux envies, et 500€ à l’épargne ou remboursement.
-  </div>
-
-  <h2>3. Économiser intelligemment</h2>
-  <p>Économiser ne veut pas dire se priver, mais optimiser ses dépenses :</p>
+  <h2 id="automatiser">8. Automatiser ses finances</h2>
+  <p>Automatise tes virements, paiements, et investissements pour :</p>
   <ul>
-    <li>Comparer les offres pour réduire factures (internet, assurance...)</li>
-    <li>Planifier ses achats pour éviter les achats impulsifs</li>
-    <li>Utiliser des applications de cashback ou de bons plans</li>
-    <li>Mettre en place une épargne automatique chaque mois</li>
+    <li>Éviter les oublis</li>
+    <li>Respecter ton budget</li>
+    <li>Construire des habitudes financières solides</li>
   </ul>
 
-  <h2>4. Réduire ses dettes</h2>
-  <p>Si tu as des dettes, il faut les prioriser :</p>
+  <h2 id="psychologie">9. Pièges psychologiques à éviter</h2>
   <ul>
-    <li>Rembourser en priorité les dettes avec le taux d’intérêt le plus élevé</li>
-    <li>Contacter les organismes pour négocier des échéanciers si besoin</li>
-    <li>Éviter d’ajouter de nouvelles dettes</li>
+    <li>L’impulsivité dans les achats</li>
+    <li>Le biais du présent (préférer dépenser maintenant au lieu d’épargner)</li>
+    <li>Le mimétisme social (acheter pour suivre les autres)</li>
+  </ul>
+  <p>Connaître ces pièges aide à les surmonter.</p>
+
+  <h2 id="exemples">10. Exemples concrets & études de cas</h2>
+  <p><strong>Cas 1 : Sarah, 28 ans, organise ses finances</strong></p>
+  <p>Sarah a commencé par noter toutes ses dépenses pendant 1 mois, elle a découvert qu’elle dépensait 150€ en cafés et sorties. En réduisant à 50€, elle a pu augmenter son épargne mensuelle.</p>
+
+  <p><strong>Cas 2 : Thomas, 35 ans, utilise l’automatisation</strong></p>
+  <p>Thomas a automatisé un virement de 300€ vers son livret A chaque début de mois. Sans y penser, il a économisé 3600€ en un an.</p>
+
+  <h2 id="outils">11. Outils et ressources recommandés</h2>
+  <ul>
+    <li>Applications : Bankin’, Linxo, YNAB (You Need A Budget)</li>
+    <li>Livres : “Père riche, père pauvre” de Robert Kiyosaki</li>
+    <li>Podcasts : “Gérer son argent” sur Spotify</li>
+    <li>Sites : service-public.fr (informations sur les droits)</li>
   </ul>
 
-  <h2>5. Investir pour faire fructifier son argent</h2>
-  <p>L’épargne seule ne suffit pas toujours, investir permet de faire travailler son argent :</p>
+  <h2 id="conclusion">12. Conclusion & plan d’action</h2>
+  <p>Gérer son argent comme un pro, c’est un travail au quotidien. Commence par te connaître financièrement, établis un budget clair, épargne régulièrement, et forme-toi en continu.</p>
+  <blockquote>“Maîtriser son argent, c’est maîtriser sa liberté.”</blockquote>
+  <p>Plan d’action :</p>
   <ul>
-    <li>Investir dans un PEA, un compte-titres ou assurance-vie</li>
-    <li>Penser à la diversification : actions, obligations, immobilier</li>
-    <li>Commencer petit, se former régulièrement</li>
-  </ul>
-  <p>Ne jamais investir dans quelque chose qu’on ne comprend pas.</p>
-
-  <h2>6. Les erreurs courantes à éviter</h2>
-  <ul>
-    <li>Ne pas suivre ses dépenses</li>
-    <li>Vivre au-dessus de ses moyens</li>
-    <li>Oublier de mettre de l’argent de côté</li>
-    <li>Investir sans information</li>
-    <li>Prendre des crédits à la consommation pour des besoins non urgents</li>
+    <li>Note tes revenus et dépenses dès aujourd’hui</li>
+    <li>Établis un budget réaliste</li>
+    <li>Automatise une épargne mensuelle</li>
+    <li>Éduque-toi régulièrement</li>
+    <li>Réévalue tes finances chaque trimestre</li>
   </ul>
 
-  <h2>7. Conseils pratiques au quotidien</h2>
-  <ul>
-    <li>Prendre l’habitude de revoir son budget chaque mois</li>
-    <li>Automatiser ses épargnes</li>
-    <li>Se fixer des objectifs financiers clairs (vacances, achat, retraite)</li>
-    <li>Apprendre continuellement grâce à des livres, podcasts, formations</li>
-  </ul>
-
-  <div class="example">
-    Exemple : Paul se fixe comme objectif d’économiser 3000€ en 1 an pour un voyage. Il met donc 250€ de côté chaque mois automatiquement depuis son compte bancaire.
-  </div>
-
-  <p>Tu as maintenant toutes les clés pour gérer ton argent comme un pro. C’est un cheminement qui demande discipline mais qui apporte une grande sérénité financière.</p>
-
-  <p>Bon courage et surtout, passe à l’action ! 🚀</p>
+  <p style="text-align:center; margin-top: 50px; font-style: italic;">Bonne gestion et à ta réussite financière ! 💼🚀</p>
 
 </body>
 </html>
