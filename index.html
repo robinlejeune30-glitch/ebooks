@@ -71,11 +71,11 @@
       display: flex;
       flex-direction: column;
       gap: 40px;
-      max-width: 900px;
     }
 
     /* Header section */
     header {
+      max-width: 900px;
       margin-bottom: 20px;
     }
     header h1 {
@@ -99,7 +99,7 @@
 
     /* Ebooks Section */
     section#ebooks {
-      width: 100%;
+      max-width: 900px;
     }
     #ebooks h2 {
       font-size: 2rem;
@@ -118,11 +118,11 @@
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(230,126,34,0.15);
       padding: 25px 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      cursor: default;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .ebook-card:hover {
       transform: translateY(-6px);
@@ -140,88 +140,47 @@
       line-height: 1.4;
       margin-bottom: 20px;
     }
-    .ebook-card a,
-    .ebook-card button {
+    .ebook-card a {
       align-self: flex-start;
       background: #f39c12;
       color: white;
+      text-decoration: none;
       font-weight: 600;
       padding: 10px 18px;
       border-radius: 8px;
       transition: background-color 0.3s ease;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 1rem;
     }
-    .ebook-card a:hover,
-    .ebook-card button:hover {
+    .ebook-card a:hover {
       background-color: #d67a07;
     }
 
-    /* Ebook content container */
-    #ebook-content {
-      background: white;
+    /* Contact Section */
+    section#contact {
+      max-width: 900px;
+      background: #fff3e0;
+      padding: 30px 25px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(230,126,34,0.15);
-      padding: 30px 25px;
-      margin-top: 40px;
-      color: #34495e;
-      max-height: 70vh;
-      overflow-y: auto;
-      display: none; /* caché au départ */
+      color: #b35800;
     }
-    #ebook-content h1 {
-      color: #2980b9;
-      font-size: 2.5rem;
-      margin-bottom: 0.5em;
-    }
-    #ebook-content h2 {
-      margin-top: 30px;
-      color: #3498db;
-      border-bottom: 3px solid #3498db;
-      padding-bottom: 8px;
-    }
-    #ebook-content h3 {
-      color: #2c3e50;
-      margin-top: 25px;
-    }
-    #ebook-content p {
-      margin-top: 12px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-    #ebook-content ul {
-      margin-top: 12px;
-      margin-left: 25px;
-    }
-    #ebook-content ul li {
-      margin-bottom: 10px;
-      font-size: 1.05rem;
-    }
-    #ebook-content blockquote {
-      margin: 25px 0;
-      padding-left: 20px;
-      border-left: 5px solid #3498db;
-      color: #21618c;
-      font-style: italic;
-      background: #d6eaf8;
-      border-radius: 8px;
-    }
-    #ebook-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+    section#contact h2 {
       margin-bottom: 20px;
+      color: #f39c12;
+      font-size: 2rem;
+      border-bottom: 3px solid #f39c12;
+      padding-bottom: 5px;
     }
-    #ebook-content th, #ebook-content td {
-      border: 1px solid #2980b9;
-      padding: 10px;
-      text-align: center;
+    section#contact p {
+      font-size: 1.15rem;
+      line-height: 1.5;
     }
-    #ebook-content th {
-      background-color: #3498db;
-      color: white;
+    section#contact a {
+      color: #e67e22;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    section#contact a:hover {
+      text-decoration: underline;
     }
 
     /* Responsive */
@@ -239,7 +198,6 @@
       main {
         margin-left: 0;
         padding: 20px 15px;
-        max-width: 100%;
       }
       header h1 {
         font-size: 2.5rem;
@@ -300,9 +258,6 @@
       <div class="ebook-grid" id="ebooks-list">
         <!-- Les ebooks seront insérés ici par JS -->
       </div>
-
-      <!-- Contenu ebook affiché ici -->
-      <div id="ebook-content"></div>
     </section>
 
     <section id="contact">
@@ -314,98 +269,64 @@
   <script>
     const ebooks = [
       {
-        id: "investir-partir-0",
         title: "📈 Investir en partant de 0",
         description: "Apprenez les bases de l’investissement, même sans capital initial. Stratégies, astuces et conseils pour débuter sereinement.",
-        link: "investir-partir-0.html",
-        type: "link"
+        link: "investir-partir-0.html"
       },
       {
-        id: "gerer-son-argent",
         title: "💼 Gérer son argent comme un pro",
         description: "Apprenez à budgétiser, éviter les pièges financiers et faire des choix responsables avec votre argent.",
-        type: "inline", // pour affichage inline
-        content: `
-          <h1>Gérer son argent comme un pro</h1>
-          <p>Bienvenue dans cet ebook qui va vous apprendre à maîtriser votre budget, économiser intelligemment, et investir de manière responsable.</p>
-          <h2>Chapitre 1 : Budget et contrôle</h2>
-          <p>Le contrôle de votre budget est la base. Commencez par suivre toutes vos dépenses pendant un mois, analysez vos habitudes.</p>
-          <h2>Chapitre 2 : Éviter les pièges financiers</h2>
-          <ul>
-            <li>Attention aux crédits à la consommation</li>
-            <li>Évitez les achats impulsifs</li>
-            <li>Privilégiez les placements sécurisés</li>
-          </ul>
-          <h2>Chapitre 3 : Faire des choix responsables</h2>
-          <p>Investissez dans ce que vous comprenez, diversifiez vos placements, et gardez toujours un fonds d'urgence.</p>
-          <blockquote>"Gérer son argent, c’est gérer sa liberté." – Robin Lejeune</blockquote>
-        `
+        link: "gerer-son-argent.html"
       },
       {
-        id: "investir-intelligemment",
-        title: "🚀 Investir intelligemment",
-        description: "Explorez des stratégies d’investissement avancées pour maximiser vos rendements tout en maîtrisant les risques.",
-        link: "investir-intelligemment.html",
-        type: "link"
+        title: "🧠 Développement personnel & argent",
+        description: "Comprenez la psychologie de l'argent, développez votre mentalité financière et dépassez vos blocages.",
+        link: "developpement-personnel-argent.html"
+      },
+      {
+        title: "🚀 Marketing digital",
+        description: "Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.",
+        link: "marketing-digital.html"
       }
     ];
 
     const ebooksList = document.getElementById('ebooks-list');
-    const ebookContent = document.getElementById('ebook-content');
 
-    // Fonction pour créer la carte d’un ebook
-    function createEbookCard(ebook) {
-      const card = document.createElement('div');
-      card.classList.add('ebook-card');
-
-      const title = document.createElement('h3');
-      title.textContent = ebook.title;
-      card.appendChild(title);
-
-      const desc = document.createElement('p');
-      desc.textContent = ebook.description;
-      card.appendChild(desc);
-
-      if (ebook.type === "link") {
-        const link = document.createElement('a');
-        link.href = ebook.link;
-        link.textContent = "Lire l'ebook";
-        link.target = "_blank";
-        card.appendChild(link);
-      } else if (ebook.type === "inline") {
-        const button = document.createElement('button');
-        button.textContent = "Lire l'ebook";
-        button.addEventListener('click', () => {
-          // Affiche ou cache le contenu ebook en bas de la page
-          if (ebookContent.style.display === "block" && ebookContent.dataset.current === ebook.id) {
-            ebookContent.style.display = "none";
-            ebookContent.innerHTML = "";
-            ebookContent.dataset.current = "";
-          } else {
-            ebookContent.innerHTML = ebook.content;
-            ebookContent.style.display = "block";
-            ebookContent.dataset.current = ebook.id;
-            // Scroll vers le contenu
-            ebookContent.scrollIntoView({behavior: "smooth"});
-          }
-        });
-        card.appendChild(button);
-      }
-
-      return card;
-    }
-
-    // Affichage des ebooks
     ebooks.forEach(ebook => {
-      ebooksList.appendChild(createEbookCard(ebook));
+      const card = document.createElement('div');
+      card.className = 'ebook-card';
+
+      // le lien ouvre la page dans le même onglet
+      card.innerHTML = `
+        <h3>${ebook.title}</h3>
+        <p>${ebook.description}</p>
+        <a href="${ebook.link}">Lire l'ebook</a>
+      `;
+
+      ebooksList.appendChild(card);
     });
 
-    // Menu bouton pour mobile (optionnel)
+    // Menu toggle on small screens
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
+
     menuBtn.addEventListener('click', () => {
       sidebar.classList.toggle('open');
     });
+
+    // Scroll to section and highlight menu item
+    const links = sidebar.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        sidebar.classList.remove('open');
+        const target = document.querySelector(link.getAttribute('href'));
+        if(target) target.scrollIntoView({behavior: 'smooth'});
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
   </script>
+
 </body>
 </html>
