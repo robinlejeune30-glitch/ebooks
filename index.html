@@ -118,7 +118,7 @@
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(230,126,34,0.15);
       padding: 25px 20px;
-      cursor: pointer;
+      cursor: default;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
@@ -149,6 +149,7 @@
       padding: 10px 18px;
       border-radius: 8px;
       transition: background-color 0.3s ease;
+      cursor: pointer;
     }
     .ebook-card a:hover {
       background-color: #d67a07;
@@ -256,7 +257,26 @@
     <section id="ebooks">
       <h2>Nos Ebooks</h2>
       <div class="ebook-grid" id="ebooks-list">
-        <!-- Les ebooks seront insérés ici par JS -->
+        <div class="ebook-card">
+          <h3>📈 Investir en partant de 0</h3>
+          <p>Apprenez les bases de l’investissement, même sans capital initial. Stratégies, astuces et conseils pour débuter sereinement.</p>
+          <a href="investir-partir-0.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>💼 Gérer son argent comme un pro</h3>
+          <p>Apprenez à budgétiser, éviter les pièges financiers et faire des choix responsables avec votre argent.</p>
+          <a href="gerer-son-argent.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>🧠 Développement personnel & argent</h3>
+          <p>Comprenez la psychologie de l'argent, développez votre mentalité financière et dépassez vos blocages.</p>
+          <a href="developpement-personnel-argent.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>🚀 Marketing digital</h3>
+          <p>Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.</p>
+          <a href="marketing-digital.html">Lire l'ebook</a>
+        </div>
       </div>
     </section>
 
@@ -267,45 +287,6 @@
   </main>
 
   <script>
-    const ebooks = [
-      {
-        title: "📈 Investir en partant de 0",
-        description: "Apprenez les bases de l’investissement, même sans capital initial. Stratégies, astuces et conseils pour débuter sereinement.",
-        link: "investir-partir-0.html"
-      },
-      {
-        title: "💼 Gérer son argent comme un pro",
-        description: "Apprenez à budgétiser, éviter les pièges financiers et faire des choix responsables avec votre argent.",
-        link: "gerer-son-argent.html"
-      },
-      {
-        title: "🧠 Développement personnel & argent",
-        description: "Comprenez la psychologie de l'argent, développez votre mentalité financière et dépassez vos blocages.",
-        link: "developpement-personnel-argent.html"
-      },
-      {
-        title: "🚀 Marketing digital",
-        description: "Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.",
-        link: "marketing-digital.html"
-      }
-    ];
-
-    const ebooksList = document.getElementById('ebooks-list');
-
-    ebooks.forEach(ebook => {
-      const card = document.createElement('div');
-      card.className = 'ebook-card';
-
-      // le lien ouvre la page dans le même onglet
-      card.innerHTML = `
-        <h3>${ebook.title}</h3>
-        <p>${ebook.description}</p>
-        <a href="${ebook.link}">Lire l'ebook</a>
-      `;
-
-      ebooksList.appendChild(card);
-    });
-
     // Menu toggle on small screens
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
