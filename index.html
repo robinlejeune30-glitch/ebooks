@@ -3,341 +3,326 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Comment gérer son argent</title>
+  <title>Comment gérer son argent - Ebooks et conseils</title>
   <style>
-    body {
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #fff9f0;
+    }
+    body {
+      background: #fffdf7;
       color: #333;
-      margin: 0;
-      padding: 0;
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
     }
+
+    /* Sidebar */
     nav {
-      background-color: #ffd89b;
-      width: 200px;
-      padding: 20px;
-      box-sizing: border-box;
+      background: #f9b233;
+      width: 240px;
+      min-height: 100vh;
+      padding: 30px 20px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      font-weight: bold;
-      font-size: 1.2em;
-      color: #7f4e00;
+      justify-content: space-between;
+      box-shadow: 3px 0 10px rgba(0,0,0,0.05);
       position: fixed;
-      height: 100vh;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       transition: transform 0.3s ease;
     }
-    nav a {
-      color: #7f4e00;
+    nav h2 {
+      color: white;
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 1.7rem;
+      user-select: none;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      list-style: none;
+    }
+    nav ul li {
+      margin-bottom: 20px;
+    }
+    nav ul li a {
+      color: white;
+      font-weight: 600;
       text-decoration: none;
+      font-size: 1.1rem;
+      padding: 8px 12px;
+      display: block;
+      border-radius: 6px;
+      transition: background-color 0.25s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background-color: #f39c12;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+
+    /* Main Content */
+    main {
+      margin-left: 240px;
+      padding: 40px 50px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* Header section */
+    header {
+      max-width: 900px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #e67e22;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+    header p.description {
+      font-size: 1.3rem;
+      color: #555;
+      line-height: 1.5;
+      max-width: 700px;
+    }
+    header p.sub-description {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      color: #777;
+      max-width: 700px;
+    }
+
+    /* Ebooks Section */
+    section#ebooks {
+      max-width: 900px;
+    }
+    #ebooks h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #f39c12;
+      border-bottom: 3px solid #f39c12;
+      padding-bottom: 5px;
+    }
+    .ebook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 25px;
+    }
+    .ebook-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(230,126,34,0.15);
+      padding: 25px 20px;
       cursor: pointer;
-      padding: 8px 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .ebook-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(230,126,34,0.3);
+    }
+    .ebook-card h3 {
+      color: #e67e22;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+    .ebook-card p {
+      flex-grow: 1;
+      color: #555;
+      font-size: 1.05rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .ebook-card a {
+      align-self: flex-start;
+      background: #f39c12;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 18px;
       border-radius: 8px;
       transition: background-color 0.3s ease;
     }
-    nav a:hover, nav a:focus {
-      background-color: #ffb347;
-      color: white;
-      outline: none;
+    .ebook-card a:hover {
+      background-color: #d67a07;
     }
 
-    /* Hamburger menu for mobile */
-    #menuToggle {
-      display: none;
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      width: 35px;
-      height: 30px;
-      z-index: 1001;
-      cursor: pointer;
-      flex-direction: column;
-      justify-content: space-between;
+    /* Contact Section */
+    section#contact {
+      max-width: 900px;
+      background: #fff3e0;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(230,126,34,0.15);
+      color: #b35800;
     }
-    #menuToggle span {
-      display: block;
-      height: 4px;
-      background: #7f4e00;
-      border-radius: 2px;
-      transition: all 0.3s ease;
+    section#contact h2 {
+      margin-bottom: 20px;
+      color: #f39c12;
+      font-size: 2rem;
+      border-bottom: 3px solid #f39c12;
+      padding-bottom: 5px;
     }
-    /* Toggle menu open styles */
-    #menuToggle.open span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
+    section#contact p {
+      font-size: 1.15rem;
+      line-height: 1.5;
     }
-    #menuToggle.open span:nth-child(2) {
-      opacity: 0;
+    section#contact a {
+      color: #e67e22;
+      font-weight: 700;
+      text-decoration: none;
     }
-    #menuToggle.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
+    section#contact a:hover {
+      text-decoration: underline;
     }
 
-    /* Hide nav on mobile by default */
-    @media (max-width: 900px) {
+    /* Responsive */
+    @media(max-width: 800px) {
       nav {
         position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
         width: 200px;
-        background-color: #ffd89b;
-        padding-top: 60px;
         transform: translateX(-220px);
-        z-index: 1000;
+        z-index: 10;
       }
       nav.open {
         transform: translateX(0);
-        box-shadow: 4px 0 15px rgba(0,0,0,0.3);
-      }
-      #menuToggle {
-        display: flex;
+        box-shadow: 2px 0 15px rgba(0,0,0,0.15);
       }
       main {
-        margin-left: 0 !important;
-        padding: 20px !important;
+        margin-left: 0;
+        padding: 20px 15px;
+      }
+      header h1 {
+        font-size: 2.5rem;
+      }
+      header p.description {
+        font-size: 1.1rem;
+      }
+      #menu-btn {
+        display: block;
+        position: fixed;
+        top: 18px;
+        left: 15px;
+        background: #f39c12;
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 20;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        transition: background-color 0.3s ease;
+      }
+      #menu-btn:hover {
+        background-color: #d67a07;
       }
     }
-
-    main {
-      margin-left: 220px;
-      flex: 1;
-      padding: 40px;
-      box-sizing: border-box;
-      background-color: #fff3e0;
-      overflow-y: auto;
-      scroll-behavior: smooth;
-      min-height: 100vh;
-    }
-    h1 {
-      font-size: 4em;
-      color: #f57c00;
-      margin-bottom: 20px;
-    }
-    .description, .proposition {
-      font-size: 1.3em;
-      margin-bottom: 30px;
-      max-width: 800px;
-      line-height: 1.6;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .visible {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-    .ebooks-section {
-      margin-top: 50px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .ebooks-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .ebooks-section h2 {
-      font-size: 2.5em;
-      color: #f57c00;
-      margin-bottom: 20px;
-    }
-    .ebooks-container {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
-      max-width: 1000px;
-    }
-    .ebook {
-      background-color: #fff7e6;
-      border-radius: 15px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      padding: 25px;
-      flex: 1 1 220px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .ebook:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-    }
-    .ebook h3 {
-      margin-top: 0;
-      font-size: 1.5em;
-      color: #f57c00;
-      margin-bottom: 12px;
-    }
-    .ebook p {
-      flex-grow: 1;
-      color: #6e4b00;
-      font-size: 1.1em;
-      margin-bottom: 18px;
-    }
-    .ebook a {
-      text-decoration: none;
-      background-color: #ff9800;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-weight: bold;
-      text-align: center;
-      transition: background-color 0.3s ease;
-    }
-    .ebook a:hover {
-      background-color: #ef6c00;
-    }
-    .contact-section {
-      margin-top: 60px;
-      font-size: 1.2em;
-      color: #7f4e00;
-      max-width: 600px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .contact-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .contact-section a {
-      color: #f57c00;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .contact-section a:hover {
-      text-decoration: underline;
+    @media(min-width: 801px) {
+      #menu-btn {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div id="menuToggle" aria-label="Menu" tabindex="0">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+  <button id="menu-btn" aria-label="Ouvrir le menu">☰ Menu</button>
 
-  <nav id="navMenu" aria-label="Menu de navigation">
-    <a href="#ebooks">Ebooks</a>
-    <a href="#contact">Contact</a>
+  <nav id="sidebar">
+    <h2>Mes Ebooks</h2>
+    <ul>
+      <li><a href="#ebooks" class="active">Ebooks</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
   <main>
-    <h1>Comment gérer son argent</h1>
-
-    <section class="description">
-      <p>
-        Le développement personnel est un outil puissant pour mieux comprendre et maîtriser sa relation avec l'argent.
-        Apprendre à gérer son argent intelligemment permet d'assurer sa sécurité financière et d'ouvrir la porte à de nouvelles opportunités.
+    <header>
+      <h1>Comment gérer son argent</h1>
+      <p class="description">
+        Découvrez des conseils en développement personnel liés à l'argent, pour mieux gérer, investir intelligemment et atteindre la liberté financière.
       </p>
-    </section>
-
-    <section class="proposition">
-      <p>
-        Ce site propose une sélection d'ebooks dédiés à l'art de gérer son argent, d'investir intelligemment et de comprendre l'importance du mindset financier.
+      <p class="sub-description">
+        Ce site vous propose une sélection d'ebooks complets, conçus pour vous aider à maîtriser votre argent et à investir de façon avisée. Pourquoi c’est important ? Parce que gérer son argent, c’est aussi gérer sa vie.
       </p>
-    </section>
+    </header>
 
-    <section id="ebooks" class="ebooks-section">
-      <h2>📘 Nos ebooks disponibles</h2>
-      <div class="ebooks-container" id="ebooksContainer">
-        <!-- Les ebooks seront insérés ici par JavaScript -->
+    <section id="ebooks">
+      <h2>Nos Ebooks</h2>
+      <div class="ebook-grid" id="ebooks-list">
+        <!-- Les ebooks seront insérés ici par JS -->
       </div>
     </section>
 
-    <section id="contact" class="contact-section">
-      <h2>Contact</h2>
-      <p>Pour me contacter : <a href="mailto:robinlejeune30@gmail.com">robinlejeune30@gmail.com</a></p>
+    <section id="contact">
+      <h2>Contactez-moi</h2>
+      <p>Une question ? Une suggestion ? N’hésitez pas à m’écrire : <a href="mailto:robinlejeune30@gmail.com">robinlejeune30@gmail.com</a></p>
     </section>
   </main>
 
   <script>
-    // Données ebooks
     const ebooks = [
       {
-        title: "💡 Investir en partant de zéro",
-        description: "Un guide simple pour comprendre les bases de l'investissement même sans connaissance. Idéal pour débutants.",
-        link: "#"
+        title: "📈 Investir en partant de 0",
+        description: "Apprenez les bases de l’investissement, même sans capital initial. Stratégies, astuces et conseils pour débuter sereinement.",
+        link: "investir-partir-0.html"
       },
       {
         title: "💼 Gérer son argent comme un pro",
-        description: "Apprends à budgétiser, éviter les pièges financiers et faire des choix responsables avec ton argent.",
-        link: "#"
+        description: "Apprenez à budgétiser, éviter les pièges financiers et faire des choix responsables avec votre argent.",
+        link: "gerer-son-argent.html"
       },
       {
-        title: "📈 Développement personnel & argent",
-        description: "Relier mindset et gestion financière pour construire une vie équilibrée et ambitieuse.",
-        link: "#"
+        title: "🧠 Développement personnel & argent",
+        description: "Comprenez la psychologie de l'argent, développez votre mentalité financière et dépassez vos blocages.",
+        link: "developpement-personnel-argent.html"
       },
       {
-        title: "🚀 Marketing digital pour débutants",
-        description: "Découvre les bases du marketing digital pour lancer un business en ligne ou booster ta présence sur internet.",
+        title: "🚀 Marketing digital",
+        description: "Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.",
         link: "marketing-digital.html"
       }
     ];
 
-    // Générer les ebooks dans le conteneur
-    const container = document.getElementById('ebooksContainer');
-    ebooks.forEach(ebook => {
-      const ebookDiv = document.createElement('div');
-      ebookDiv.classList.add('ebook');
+    const ebooksList = document.getElementById('ebooks-list');
 
-      ebookDiv.innerHTML = `
+    ebooks.forEach(ebook => {
+      const card = document.createElement('div');
+      card.className = 'ebook-card';
+
+      card.innerHTML = `
         <h3>${ebook.title}</h3>
         <p>${ebook.description}</p>
-        <a href="${ebook.link}">${ebook.link === '#' ? '📥 Télécharger l\'ebook' : '📖 Lire l\'ebook complet'}</a>
+        <a href="${ebook.link}">Lire l'ebook</a>
       `;
 
-      container.appendChild(ebookDiv);
+      ebooksList.appendChild(card);
     });
 
-    // Smooth scroll is handled by CSS scroll-behavior: smooth;
+    // Menu toggle on small screens
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.getElementById('sidebar');
 
-    // Animation fade-in au scroll
-    function revealOnScroll() {
-      const sections = document.querySelectorAll('.description, .proposition, .ebooks-section, .contact-section');
-      const triggerBottom = window.innerHeight * 0.85;
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
 
-      sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if(sectionTop < triggerBottom) {
-          section.classList.add('visible');
-        }
-      });
-    }
-
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
-
-    // Menu hamburger toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-
-    function toggleMenu() {
-      menuToggle.classList.toggle('open');
-      navMenu.classList.toggle('open');
-    }
-    menuToggle.addEventListener('click', toggleMenu);
-    menuToggle.addEventListener('keydown', (e) => {
-      if (e.key === "Enter" || e.key === " ") {
+    // Scroll to section and highlight menu item
+    const links = sidebar.querySelectorAll('a');
+    links.forEach(link => {
+      link.addEventListener('click', e => {
         e.preventDefault();
-        toggleMenu();
-      }
-    });
-
-    // Fermer le menu quand on clique sur un lien (mobile)
-    navMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        if(navMenu.classList.contains('open')){
-          toggleMenu();
-        }
+        sidebar.classList.remove('open');
+        const target = document.querySelector(link.getAttribute('href'));
+        if(target) target.scrollIntoView({behavior: 'smooth'});
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
       });
     });
   </script>
