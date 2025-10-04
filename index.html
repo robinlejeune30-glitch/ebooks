@@ -97,6 +97,22 @@
       max-width: 700px;
     }
 
+    /* Style bouton ajouté */
+    header button {
+      margin-top: 20px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    header button:hover {
+      background-color: #d67a07;
+    }
+
     /* Ebooks Section */
     section#ebooks {
       max-width: 900px;
@@ -251,6 +267,11 @@
       <p class="sub-description">
         Ce site vous propose une sélection d'ebooks complets, conçus pour vous aider à maîtriser votre argent et à investir de façon avisée. Pourquoi c’est important ? Parce que gérer son argent, c’est aussi gérer sa vie.
       </p>
+
+      <!-- Bouton ajouté pour aller vers "Gérer son argent comme un pro" -->
+      <button onclick="window.location.href='gerer-son-argent.html'">
+        Gérer son argent comme un pro
+      </button>
     </header>
 
     <section id="ebooks">
