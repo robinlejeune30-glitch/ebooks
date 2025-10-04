@@ -1,27 +1,198 @@
-<section id="ebooks">
-  <h2>📘 Nos ebooks disponibles</h2>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comment gérer son argent</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fff9f0;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+    }
+    nav {
+      background-color: #ffd89b;
+      width: 200px;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #7f4e00;
+    }
+    nav a {
+      color: #7f4e00;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background-color: #ffb347;
+      color: white;
+    }
+    main {
+      flex: 1;
+      padding: 40px;
+      box-sizing: border-box;
+      background-color: #fff3e0;
+      overflow-y: auto;
+    }
+    h1 {
+      font-size: 3em;
+      color: #f57c00;
+      margin-bottom: 10px;
+    }
+    .description, .proposition, .ebooks-section, .contact-section {
+      margin-bottom: 40px;
+      font-size: 1.15em;
+      line-height: 1.6;
+    }
+    .ebooks-section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #f57c00;
+    }
+    .ebooks-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .ebook {
+      background-color: #fff7e6;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      padding: 20px;
+      flex: 1 1 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .ebook:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.25);
+    }
+    .ebook h3 {
+      margin-top: 0;
+      color: #f57c00;
+      font-size: 1.4em;
+    }
+    .ebook p {
+      flex-grow: 1;
+      margin-bottom: 15px;
+      color: #6e4b00;
+    }
+    .ebook a {
+      align-self: flex-start;
+      background-color: #ff9800;
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .ebook a:hover {
+      background-color: #ef6c00;
+    }
+    .contact-section h2 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: #f57c00;
+    }
+    .contact-section p {
+      font-size: 1.2em;
+      color: #7f4e00;
+    }
 
-  <div class="ebook">
-    <h3>💡 Investir en partant de zéro</h3>
-    <p>Un guide simple pour comprendre les bases de l'investissement même sans connaissance. Idéal pour débutants.</p>
-    <a href="#">📥 Télécharger l'ebook</a>
-  </div>
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      nav {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+      }
+      main {
+        padding: 20px;
+      }
+      .ebooks-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
 
-  <div class="ebook">
-    <h3>💼 Gérer son argent comme un pro</h3>
-    <p>Apprends à budgétiser, éviter les pièges financiers et faire des choix responsables avec ton argent.</p>
-    <a href="#">📥 Télécharger l'ebook</a>
-  </div>
+  <nav>
+    <a href="#ebooks">Ebooks</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <div class="ebook">
-    <h3>📈 Développement personnel & argent</h3>
-    <p>Relier mindset et gestion financière pour construire une vie équilibrée et ambitieuse.</p>
-    <a href="#">📥 Télécharger l'ebook</a>
-  </div>
+  <main>
+    <h1>Comment gérer son argent</h1>
 
-  <div class="ebook">
-    <h3>🚀 Marketing digital pour débutants</h3>
-    <p>Découvre les bases du marketing digital pour lancer un business en ligne ou booster ta présence sur internet.</p>
-    <a href="#">📥 Télécharger l'ebook</a>
-  </div>
-</section>
+    <section class="description">
+      <p>
+        Le développement personnel est un outil puissant pour mieux comprendre et maîtriser sa relation avec l'argent.
+        Apprendre à gérer son argent intelligemment permet d'assurer sa sécurité financière et d'ouvrir la porte à de nouvelles opportunités.
+      </p>
+    </section>
+
+    <section class="proposition">
+      <p>
+        Ce site propose une sélection d'ebooks dédiés à l'art de gérer son argent, d'investir intelligemment et de comprendre l'importance du mindset financier.
+      </p>
+    </section>
+
+    <section id="ebooks" class="ebooks-section">
+      <h2>📘 Nos ebooks disponibles</h2>
+      <div class="ebooks-container">
+
+        <div class="ebook">
+          <h3>💡 Investir en partant de zéro</h3>
+          <p>Un guide simple pour comprendre les bases de l'investissement même sans connaissance. Idéal pour débutants.</p>
+          <a href="#">📥 Télécharger l'ebook</a>
+        </div>
+
+        <div class="ebook">
+          <h3>💼 Gérer son argent comme un pro</h3>
+          <p>Apprends à budgétiser, éviter les pièges financiers et faire des choix responsables avec ton argent.</p>
+          <a href="#">📥 Télécharger l'ebook</a>
+        </div>
+
+        <div class="ebook">
+          <h3>📈 Développement personnel & argent</h3>
+          <p>Relier mindset et gestion financière pour construire une vie équilibrée et ambitieuse.</p>
+          <a href="#">📥 Télécharger l'ebook</a>
+        </div>
+
+        <div class="ebook">
+          <h3>🚀 Marketing digital pour débutants</h3>
+          <p>Découvre les bases du marketing digital pour lancer un business en ligne ou booster ta présence sur internet.</p>
+          <a href="marketing-digital.html">📖 Lire l'ebook complet</a>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <h2>Contact</h2>
+      <p>Pour me contacter : <a href="mailto:robinlejeune30@gmail.com">robinlejeune30@gmail.com</a></p>
+    </section>
+  </main>
+
+</body>
+</html>
