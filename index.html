@@ -17,6 +17,7 @@
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
+      overflow-y: hidden; /* Bloque le scroll tant que popup visible */
     }
 
     /* Sidebar */
@@ -71,6 +72,8 @@
       display: flex;
       flex-direction: column;
       gap: 40px;
+      overflow-y: auto; /* Pour permettre scroll après popup */
+      height: 100vh;
     }
 
     /* Header section */
@@ -229,6 +232,68 @@
         display: none;
       }
     }
+
+    /* --- Popup styles --- */
+    #popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #popup {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    #popup h2 {
+      margin-bottom: 15px;
+      color: #f39c12;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    #popup p {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      color: #555;
+    }
+    #popup input[type="email"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1.8px solid #f39c12;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+    #popup input[type="email"]:focus {
+      border-color: #d67a07;
+      outline: none;
+    }
+    #popup button {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    #popup button:hover {
+      background-color: #d67a07;
+    }
   </style>
 </head>
 <body>
@@ -276,47 +341,94 @@
           <h3>🚀 Marketing digital</h3>
           <p>Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.</p>
           <a href="marketing-digital.html">Lire l'ebook</a>
-         </div>
-       <div class="ebook-card">
+        </div>
+        <div class="ebook-card">
           <h3>💰 maitriser les ETF</h3>
           <p>Maîtrisez les bases des ETF pour booster votre patrimoine.</p>
           <a href="ETF.html">Lire l'ebook</a>
-      </div>
+        </div>
         <div class="ebook-card">
           <h3>🤑 de 0 à des milliers d'eauros</h3>
           <p>gagner de l'argent en partant de 0 c'est possible.</p>
           <a href="0 à des milliers.html">Lire l'ebook</a>
-         </div>
+        </div>
+      </div>
     </section>
 
     <section id="contact">
-      <h2>Contactez-moi</h2>
-      <p>Une question ? Une suggestion ? N’hésitez pas à m’écrire : <a href="mailto:robinlejeune30@gmail.com">robinlejeune30@gmail.com</a></p>
+      <h2>Contactez-nous</h2>
+      <p>Vous avez des questions ou souhaitez en savoir plus ? N’hésitez pas à <a href="mailto:robinlejeune30@gmail.com">nous contacter</a>.</p>
     </section>
   </main>
 
+  <!-- Popup email -->
+  <div id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-desc">
+    <div id="popup">
+      <h2 id="popup-title">Bienvenue sur le site !</h2>
+      <p id="popup-desc">Veuillez entrer votre adresse e-mail pour continuer.</p>
+      <form id="email-form" action="https://formspree.io/f/mlezvngr" method="POST">
+        <!-- Remplace https://formspree.io/f/mlezvngr par ton endpoint Formspree personnel -->
+        <input
+          type="email"
+          name="email"
+          id="email-input"
+          placeholder="Votre adresse e-mail"
+          required
+          autocomplete="email"
+          />
+        <button type="submit">Soumettre</button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    // Menu toggle on small screens
+    // Pour gérer la fermeture de la popup après envoi du mail via Formspree
+    const popupOverlay = document.getElementById('popup-overlay');
+    const emailForm = document.getElementById('email-form');
+
+    emailForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const emailInput = document.getElementById('email-input');
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        alert('Veuillez entrer une adresse e-mail valide.');
+        return;
+      }
+
+      // Envoi via fetch vers Formspree
+      try {
+        const formData = new FormData(emailForm);
+        const response = await fetch(emailForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          alert("Merci ! Votre email a été bien reçu.");
+          popupOverlay.style.display = 'none';
+          document.body.style.overflowY = 'auto'; // Rétablir scroll
+        } else {
+          alert("Une erreur est survenue, veuillez réessayer.");
+        }
+      } catch (error) {
+        alert("Une erreur est survenue, veuillez réessayer.");
+      }
+    });
+
+    // Empêche scroll tant que popup visible
+    document.body.style.overflow = 'hidden';
+
+    // Menu toggle (responsive)
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
-
     menuBtn.addEventListener('click', () => {
       sidebar.classList.toggle('open');
     });
-
-    // Scroll to section and highlight menu item
-    const links = sidebar.querySelectorAll('a');
-    links.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        sidebar.classList.remove('open');
-        const target = document.querySelector(link.getAttribute('href'));
-        if(target) target.scrollIntoView({behavior: 'smooth'});
-        links.forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
-      });
-    });
   </script>
-
 </body>
 </html>
