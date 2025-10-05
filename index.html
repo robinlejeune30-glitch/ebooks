@@ -187,6 +187,119 @@
       text-decoration: underline;
     }
 
+    /* Centered question section */
+    #questionnaire-start {
+      max-width: 400px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    #questionnaire-start h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #f39c12;
+      font-weight: 700;
+    }
+    #start-questionnaire-btn {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #start-questionnaire-btn:hover {
+      background-color: #d67a07;
+    }
+
+    /* Questionnaire popup styles */
+    #questionnaire-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(3px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    #questionnaire {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      max-width: 450px;
+      width: 90%;
+      text-align: left;
+    }
+    #questionnaire h3 {
+      margin-bottom: 15px;
+      color: #f39c12;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    #questionnaire form > div {
+      margin-bottom: 25px;
+    }
+    #questionnaire label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    #questionnaire input[type="checkbox"],
+    #questionnaire input[type="number"] {
+      cursor: pointer;
+      padding: 6px 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1.5px solid #f39c12;
+      width: 100%;
+      max-width: 120px;
+    }
+    #questionnaire input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      cursor: pointer;
+    }
+    #questionnaire .btn-next {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      float: right;
+    }
+    #questionnaire .btn-next:hover {
+      background-color: #d67a07;
+    }
+    #questionnaire .btn-close {
+      background: none;
+      border: none;
+      color: #f39c12;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 10px;
+      float: left;
+    }
+    #result {
+      font-size: 1.2rem;
+      color: #333;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 15px;
+    }
+
     /* Responsive */
     @media(max-width: 800px) {
       nav {
@@ -226,6 +339,10 @@
       #menu-btn:hover {
         background-color: #d67a07;
       }
+      #questionnaire {
+        max-width: 95vw;
+        padding: 20px;
+      }
     }
     @media(min-width: 801px) {
       #menu-btn {
@@ -233,7 +350,7 @@
       }
     }
 
-    /* --- Popup styles --- */
+    /* --- Popup email --- */
     #popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -319,6 +436,12 @@
       </p>
     </header>
 
+    <!-- Section ajoutée au centre pour la question + bouton -->
+    <section id="questionnaire-start" aria-label="Questionnaire d'investissement">
+      <h2>Tu ne sais pas combien investir ?</h2>
+      <button id="start-questionnaire-btn" aria-haspopup="dialog" aria-controls="questionnaire-overlay">Commencer le questionnaire</button>
+    </section>
+
     <section id="ebooks">
       <h2>Nos Ebooks</h2>
       <div class="ebook-grid" id="ebooks-list">
@@ -357,88 +480,154 @@
 
     <section id="contact">
       <h2>Contactez-nous</h2>
-      <p>Vous avez des questions ou souhaitez en savoir plus ? N’hésitez pas à <a href="mailto:robinlejeune30@gmail.com">nous contacter</a>.</p>
+      <p>Des questions ? Des suggestions ? N’hésitez pas à nous écrire à <a href="mailto:contact@exemple.com">contact@exemple.com</a></p>
     </section>
   </main>
 
-  <!-- Popup email -->
-  <div id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title" aria-describedby="popup-desc">
-    <div id="popup">
-      <h2 id="popup-title">Bienvenue sur le site !</h2>
-      <p id="popup-desc">Veuillez entrer votre adresse e-mail pour continuer.</p>
-      <form id="email-form" action="https://formspree.io/f/mblzkyzk" method="POST">
-        <!-- Remplace https://formspree.io/f/mlezvngr par ton endpoint Formspree personnel -->
-        <input
-          type="email"
-          name="email"
-          id="email-input"
-          placeholder="Votre adresse e-mail"
-          required
-          autocomplete="email"
-          />
-        <button type="submit">Soumettre</button>
+  <!-- Questionnaire Popup -->
+  <div id="questionnaire-overlay" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title">
+    <div id="questionnaire">
+      <button class="btn-close" aria-label="Fermer le questionnaire">✕ Fermer</button>
+      <h3 id="questionnaire-title">Questionnaire investissement</h3>
+
+      <form id="questionnaire-form">
+        <!-- Étape 1 -->
+        <div class="question-step" data-step="1">
+          <p>Quels métiers exercez-vous ? (plusieurs choix possibles)</p>
+          <label><input type="checkbox" name="metiers" value="salarié" /> Salarié</label>
+          <label><input type="checkbox" name="metiers" value="indépendant" /> Indépendant</label>
+          <label><input type="checkbox" name="metiers" value="étudiant" /> Étudiant</label>
+          <label><input type="checkbox" name="metiers" value="retraité" /> Retraité</label>
+          <button type="button" class="btn-next">Suivant</button>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="question-step" data-step="2" style="display:none;">
+          <label for="salaire">Quel est votre salaire mensuel net (€) ?</label>
+          <input type="number" id="salaire" name="salaire" min="0" step="100" required />
+          <button type="button" class="btn-next">Suivant</button>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="question-step" data-step="3" style="display:none;">
+          <label for="charges">Montant total des charges mensuelles (€) ?</label>
+          <input type="number" id="charges" name="charges" min="0" step="50" required />
+          <button type="submit" class="btn-next">Calculer</button>
+        </div>
+
       </form>
+
+      <div id="result" aria-live="polite" role="region"></div>
+    </div>
+  </div>
+
+  <!-- Popup Email (existant) -->
+  <div id="popup-overlay" style="display:none;">
+    <div id="popup">
+      <h2>Inscrivez-vous à la newsletter</h2>
+      <p>Recevez nos conseils exclusifs directement dans votre boîte mail.</p>
+      <input type="email" placeholder="Votre email" />
+      <button>S'inscrire</button>
     </div>
   </div>
 
   <script>
-    const popupOverlay = document.getElementById('popup-overlay');
-    const emailForm = document.getElementById('email-form');
-
-    // Fonction pour cacher la popup et réactiver le scroll
-    function hidePopup() {
-      popupOverlay.style.display = 'none';
-      document.body.style.overflowY = 'auto';
-    }
-
-    // Vérifie au chargement si l’utilisateur a déjà soumis son mail
-    if (localStorage.getItem('emailSubmitted')) {
-      hidePopup();
-    } else {
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Gestion du submit du formulaire
-    emailForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const emailInput = document.getElementById('email-input');
-      const email = emailInput.value.trim();
-
-      if (!email) {
-        alert('Veuillez entrer une adresse e-mail valide.');
-        return;
-      }
-
-      try {
-        const formData = new FormData(emailForm);
-        const response = await fetch(emailForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          alert("Merci ! Votre email a été bien reçu.");
-          localStorage.setItem('emailSubmitted', 'true'); // On enregistre le flag
-          hidePopup();
-        } else {
-          alert("Une erreur est survenue, veuillez réessayer.");
-        }
-      } catch (error) {
-        alert("Une erreur est survenue, veuillez réessayer.");
-      }
-    });
-
-    // Menu toggle (responsive)
+    // Menu mobile toggle
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
     menuBtn.addEventListener('click', () => {
       sidebar.classList.toggle('open');
     });
-  </script>
 
+    // Questionnaire popup
+    const startBtn = document.getElementById('start-questionnaire-btn');
+    const questionnaireOverlay = document.getElementById('questionnaire-overlay');
+    const closeBtn = document.querySelector('#questionnaire .btn-close');
+    const form = document.getElementById('questionnaire-form');
+    const steps = [...document.querySelectorAll('.question-step')];
+    const resultDiv = document.getElementById('result');
+
+    let currentStep = 0;
+
+    startBtn.addEventListener('click', () => {
+      questionnaireOverlay.style.display = 'flex';
+      currentStep = 0;
+      showStep(currentStep);
+      resultDiv.textContent = '';
+      document.body.style.overflow = 'hidden'; // bloquer scroll
+    });
+
+    closeBtn.addEventListener('click', () => {
+      questionnaireOverlay.style.display = 'none';
+      document.body.style.overflow = ''; // rétablir scroll
+    });
+
+    function showStep(step) {
+      steps.forEach((stepDiv, index) => {
+        stepDiv.style.display = index === step ? 'block' : 'none';
+      });
+    }
+
+    steps.forEach((stepDiv, index) => {
+      const nextBtn = stepDiv.querySelector('.btn-next');
+      if (nextBtn && index < steps.length - 1) {
+        nextBtn.addEventListener('click', () => {
+          // Vérifier validations simples avant de passer à la suite
+          if (index === 0) {
+            const checked = stepDiv.querySelectorAll('input[type=checkbox]:checked');
+            if (checked.length === 0) {
+              alert("Veuillez sélectionner au moins un métier.");
+              return;
+            }
+          } else if (index === 1) {
+            const salaireInput = stepDiv.querySelector('input[type=number]');
+            if (!salaireInput.value || salaireInput.value <= 0) {
+              alert("Veuillez saisir un salaire valide.");
+              return;
+            }
+          }
+          currentStep++;
+          showStep(currentStep);
+        });
+      }
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // Validation final input charges
+      const chargesInput = form.querySelector('input[name="charges"]');
+      if (!chargesInput.value || chargesInput.value < 0) {
+        alert("Veuillez saisir des charges valides.");
+        return;
+      }
+
+      // Récupération des valeurs
+      const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
+      const salaire = parseFloat(form.salaire.value);
+      const charges = parseFloat(chargesInput.value);
+
+      // Calcul simplifié : épargne possible = salaire - charges
+      const epargneMensuelle = salaire - charges;
+      const epargneAnnuelle = epargneMensuelle * 12;
+
+      // Affichage résultat
+      if (epargneMensuelle <= 0) {
+        resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
+      } else {
+        resultDiv.innerHTML = `
+          <p>Selon vos réponses, vous pourriez investir environ :</p>
+          <ul>
+            <li><strong>${epargneMensuelle.toFixed(2)} €</strong> par mois</li>
+            <li><strong>${epargneAnnuelle.toFixed(2)} €</strong> par an</li>
+          </ul>
+          <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
+        `;
+      }
+
+      // Empêcher de fermer ou reset, on laisse ouvert
+    });
+
+  </script>
 </body>
 </html>
+
