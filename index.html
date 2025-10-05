@@ -508,12 +508,13 @@
           <button type="button" class="btn-next">Suivant</button>
         </div>
 
-        <!-- Étape 3 -->
-        <div class="question-step" data-step="3" style="display:none;">
-          <label for="charges">Montant total des charges mensuelles (€) ?</label>
-          <input type="number" id="charges" name="charges" min="0" step="50" required />
-          <button type="submit" class="btn-next">Calculer</button>
-        </div>
+       <!-- Étape 3 -->
+<div class="question-step" data-step="3" style="display:none;">
+  <label for="charges">Montant total des charges mensuelles (y compris nourriture) (€) ?</label>
+  <input type="number" id="charges" name="charges" min="0" step="50" required />
+  <button type="submit" class="btn-next">Calculer</button>
+</div>
+
 
       </form>
 
@@ -592,40 +593,37 @@
       }
     });
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      // Validation final input charges
-      const chargesInput = form.querySelector('input[name="charges"]');
-      if (!chargesInput.value || chargesInput.value < 0) {
-        alert("Veuillez saisir des charges valides.");
-        return;
-      }
+   form.addEventListener('submit', e => {
+  e.preventDefault();
+  const chargesInput = form.querySelector('input[name="charges"]');
+  if (!chargesInput.value || chargesInput.value < 0) {
+    alert("Veuillez saisir des charges valides.");
+    return;
+  }
 
-      // Récupération des valeurs
-      const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
-      const salaire = parseFloat(form.salaire.value);
-      const charges = parseFloat(chargesInput.value);
+  const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
+  const salaire = parseFloat(form.salaire.value);
+  const charges = parseFloat(chargesInput.value);
 
-      // Calcul simplifié : épargne possible = salaire - charges
-      const epargneMensuelle = salaire - charges;
-      const epargneAnnuelle = epargneMensuelle * 12;
+  const epargneMensuelle = salaire - charges;
 
-      // Affichage résultat
-      if (epargneMensuelle <= 0) {
-        resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
-      } else {
-        resultDiv.innerHTML = `
-          <p>Selon vos réponses, vous pourriez investir environ :</p>
-          <ul>
-            <li><strong>${epargneMensuelle.toFixed(2)} €</strong> par mois</li>
-            <li><strong>${epargneAnnuelle.toFixed(2)} €</strong> par an</li>
-          </ul>
-          <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
-        `;
-      }
+  if (epargneMensuelle <= 0) {
+    resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
+  } else {
+    // Investissement = 20% de l'épargne
+    const investissementMensuel = epargneMensuelle * 0.20;
+    const investissementAnnuel = investissementMensuel * 12;
 
-      // Empêcher de fermer ou reset, on laisse ouvert
-    });
+    resultDiv.innerHTML = `
+      <p>Selon vos réponses, vous pourriez investir environ 20% de votre épargne mensuelle :</p>
+      <ul>
+        <li><strong>${investissementMensuel.toFixed(2)} €</strong> par mois</li>
+        <li><strong>${investissementAnnuel.toFixed(2)} €</strong> par an</li>
+      </ul>
+      <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
+    `;
+  }
+});
 
   </script>
 </body>
