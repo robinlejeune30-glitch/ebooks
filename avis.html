@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Avis des lecteurs</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+      background: #fffdf7;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: #f39c12;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    form {
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      resize: vertical;
+      padding: 10px;
+      border: 1.5px solid #f39c12;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+    .stars {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    .stars input {
+      display: none;
+    }
+    .stars label {
+      font-size: 1.8rem;
+      color: #ccc;
+      cursor: pointer;
+    }
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #f39c12;
+    }
+    button {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d67a07;
+    }
+    .comment {
+      background: white;
+      border-left: 5px solid #f39c12;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    .comment p {
+      margin: 5px 0;
+    }
+    .stars-view {
+      color: #f39c12;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Laissez votre avis</h1>
+
+  <form id="avis-form">
+    <label>Note :</label>
+    <div class="stars">
+      <input type="radio" id="star5" name="note" value="5"><label for="star5">★</label>
+      <input type="radio" id="star4" name="note" value="4"><label for="star4">★</label>
+      <input type="radio" id="star3" name="note" value="3"><label for="star3">★</label>
+      <input type="radio" id="star2" name="note" value="2"><label for="star2">★</label>
+      <input type="radio" id="star1" name="note" value="1"><label for="star1">★</label>
+    </div>
+
+    <label for="commentaire">Votre commentaire (max 500 caractères) :</label>
+    <textarea id="commentaire" maxlength="500" required></textarea>
+
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <h2>Commentaires des autres utilisateurs</h2>
+  <div id="commentaires"></div>
+
+  <script>
+    const form = document.getElementById('avis-form');
+    const commentairesDiv = document.getElementById('commentaires');
+
+    // Charger les commentaires existants depuis localStorage
+    const commentaires = JSON.parse(localStorage.getItem('commentaires') || '[]');
+
+    function afficherCommentaires() {
+      commentairesDiv.innerHTML = commentaires.map(com => `
+        <div class="comment">
+          <div class="stars-view">${'★'.repeat(com.note)}${'☆'.repeat(5 - com.note)}</div>
+          <p>${com.commentaire}</p>
+        </div>
+      `).join('');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const note = form.note.value;
+      const commentaire = form.commentaire.value.trim();
+
+      if (!note || commentaire.length === 0) {
+        alert("Veuillez donner une note et un commentaire.");
+        return;
+      }
+
+      commentaires.unshift({ note: parseInt(note), commentaire });
+      localStorage.setItem('commentaires', JSON.stringify(commentaires));
+      form.reset();
+      afficherCommentaires();
+    });
+
+    afficherCommentaires();
+  </script>
+
+</body>
+</html>
