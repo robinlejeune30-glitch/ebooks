@@ -17,7 +17,8 @@
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
-      overflow-y: hidden; /* Bloque le scroll tant que popup visible */
+      overflow-y: hidden; /* Bloque scroll quand popup */
+      flex-direction: row;
     }
 
     /* Sidebar */
@@ -33,13 +34,13 @@
       position: fixed;
       top: 0; left: 0;
       transition: transform 0.3s ease;
+      user-select: none;
     }
     nav h2 {
       color: white;
       margin-bottom: 40px;
       font-weight: 700;
       font-size: 1.7rem;
-      user-select: none;
       letter-spacing: 1px;
     }
     nav ul {
@@ -72,8 +73,9 @@
       display: flex;
       flex-direction: column;
       gap: 40px;
-      overflow-y: auto; /* Pour permettre scroll après popup */
+      overflow-y: auto;
       height: 100vh;
+      position: relative;
     }
 
     /* Header section */
@@ -187,119 +189,6 @@
       text-decoration: underline;
     }
 
-    /* Centered question section */
-    #questionnaire-start {
-      max-width: 400px;
-      margin: 40px auto;
-      text-align: center;
-    }
-    #questionnaire-start h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: #f39c12;
-      font-weight: 700;
-    }
-    #start-questionnaire-btn {
-      background-color: #f39c12;
-      border: none;
-      color: white;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    #start-questionnaire-btn:hover {
-      background-color: #d67a07;
-    }
-
-    /* Questionnaire popup styles */
-    #questionnaire-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.6);
-      backdrop-filter: blur(3px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-    }
-    #questionnaire {
-      background: white;
-      padding: 30px 35px;
-      border-radius: 14px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-      max-width: 450px;
-      width: 90%;
-      text-align: left;
-    }
-    #questionnaire h3 {
-      margin-bottom: 15px;
-      color: #f39c12;
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-    #questionnaire form > div {
-      margin-bottom: 25px;
-    }
-    #questionnaire label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    #questionnaire input[type="checkbox"],
-    #questionnaire input[type="number"] {
-      cursor: pointer;
-      padding: 6px 10px;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1.5px solid #f39c12;
-      width: 100%;
-      max-width: 120px;
-    }
-    #questionnaire input[type="checkbox"] {
-      width: auto;
-      margin: 0;
-      cursor: pointer;
-    }
-    #questionnaire .btn-next {
-      background-color: #f39c12;
-      border: none;
-      color: white;
-      padding: 12px 25px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      float: right;
-    }
-    #questionnaire .btn-next:hover {
-      background-color: #d67a07;
-    }
-    #questionnaire .btn-close {
-      background: none;
-      border: none;
-      color: #f39c12;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-bottom: 10px;
-      float: left;
-    }
-    #result {
-      font-size: 1.2rem;
-      color: #333;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 15px;
-    }
-
     /* Responsive */
     @media(max-width: 800px) {
       nav {
@@ -339,10 +228,6 @@
       #menu-btn:hover {
         background-color: #d67a07;
       }
-      #questionnaire {
-        max-width: 95vw;
-        padding: 20px;
-      }
     }
     @media(min-width: 801px) {
       #menu-btn {
@@ -350,7 +235,7 @@
       }
     }
 
-    /* --- Popup email --- */
+    /* --- Popup email styles --- */
     #popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -411,223 +296,370 @@
     #popup button:hover {
       background-color: #d67a07;
     }
+
+    /* --- Questionnaire Popup styles --- */
+    #questionnaire-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(3px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      padding: 20px;
+    }
+    #questionnaire {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+    }
+    #questionnaire h2 {
+      margin-bottom: 20px;
+      color: #f39c12;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    #questionnaire form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+    #questionnaire label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      text-align: left;
+    }
+    #questionnaire input[type="number"],
+    #questionnaire input[type="email"] {
+      padding: 10px 14px;
+      font-size: 1rem;
+      border: 1.5px solid #f39c12;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #questionnaire input[type="number"]:focus,
+    #questionnaire input[type="email"]:focus {
+      border-color: #d67a07;
+      outline: none;
+    }
+    #questionnaire .btn-next,
+    #questionnaire .btn-start,
+    #questionnaire .btn-close {
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+    #questionnaire .btn-next:hover,
+    #questionnaire .btn-start:hover,
+    #questionnaire .btn-close:hover {
+      background-color: #d67a07;
+    }
+    #questionnaire .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      max-height: 150px;
+      overflow-y: auto;
+      padding-right: 5px;
+      border: 1px solid #f39c12;
+      border-radius: 8px;
+    }
+    #questionnaire .checkbox-group label {
+      font-weight: 500;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    #questionnaire .result {
+      margin-top: 20px;
+      background: #fff3e0;
+      padding: 15px 20px;
+      border-radius: 12px;
+      color: #b35800;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    #questionnaire .info-text {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    /* Center block on main content */
+    #invest-block {
+      margin: auto;
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 600px;
+      border: 2px dashed #f39c12;
+      border-radius: 12px;
+      background: #fff8e1;
+      user-select: none;
+    }
+    #invest-block h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #e67e22;
+      user-select: none;
+    }
+    #invest-block button {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.3rem;
+      padding: 14px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 5px 15px rgba(243,156,18,0.3);
+    }
+    #invest-block button:hover {
+      background-color: #d67a07;
+      box-shadow: 0 7px 20px rgba(214,122,7,0.5);
+    }
   </style>
 </head>
 <body>
 
-  <button id="menu-btn" aria-label="Ouvrir le menu">☰ Menu</button>
-
-  <nav id="sidebar">
-    <h2>Mes Ebooks</h2>
+  <!-- Sidebar navigation -->
+  <nav>
+    <h2>FinancePro</h2>
     <ul>
-      <li><a href="#ebooks" class="active">Ebooks</a></li>
+      <li><a href="#" class="active">Accueil</a></li>
+      <li><a href="#ebooks">Ebooks</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
+  <!-- Main content -->
   <main>
+    <!-- Header -->
     <header>
-      <h1>Comment gérer son argent</h1>
-      <p class="description">
-        Découvrez des conseils en développement personnel liés à l'argent, pour mieux gérer, investir intelligemment et atteindre la liberté financière.
-      </p>
-      <p class="sub-description">
-        Ce site vous propose une sélection d'ebooks complets, conçus pour vous aider à maîtriser votre argent et à investir de façon avisée. Pourquoi c’est important ? Parce que gérer son argent, c’est aussi gérer sa vie.
-      </p>
+      <h1>Bienvenue sur FinancePro</h1>
+      <p class="description">Apprenez à mieux gérer votre argent avec nos ebooks et conseils gratuits.</p>
+      <p class="sub-description">Profitez d'astuces simples et efficaces pour épargner et investir intelligemment.</p>
     </header>
 
-    <!-- Section ajoutée au centre pour la question + bouton -->
-    <section id="questionnaire-start" aria-label="Questionnaire d'investissement">
+    <!-- Nouveau bloc central pour investissement -->
+    <section id="invest-block" aria-label="Questionnaire d'investissement">
       <h2>Tu ne sais pas combien investir ?</h2>
-      <button id="start-questionnaire-btn" aria-haspopup="dialog" aria-controls="questionnaire-overlay">Commencer le questionnaire</button>
+      <button id="start-questionnaire-btn" aria-haspopup="dialog" aria-controls="questionnaire-overlay">
+        Commencer le questionnaire
+      </button>
     </section>
 
-    <section id="ebooks">
-      <h2>Nos Ebooks</h2>
-      <div class="ebook-grid" id="ebooks-list">
-        <div class="ebook-card">
-          <h3>📈 Investir en partant de 0</h3>
-          <p>Apprenez les bases de l’investissement, même sans capital initial. Stratégies, astuces et conseils pour débuter sereinement.</p>
-          <a href="investir0.html">Lire l'ebook</a>
-        </div>
-        <div class="ebook-card">
-          <h3>💼 Gérer son argent comme un pro</h3>
-          <p>Apprenez à budgétiser, éviter les pièges financiers et faire des choix responsables avec votre argent.</p>
-          <a href="gerer-son-argent.html">Lire l'ebook</a>
-        </div>
-        <div class="ebook-card">
-          <h3>🧠 Développement personnel & argent</h3>
-          <p>Comprenez la psychologie de l'argent, développez votre mentalité financière et dépassez vos blocages.</p>
-          <a href="developpement-personnel-argent.html">Lire l'ebook</a>
-        </div>
-        <div class="ebook-card">
-          <h3>🚀 Marketing digital</h3>
-          <p>Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.</p>
-          <a href="marketing-digital.html">Lire l'ebook</a>
-        </div>
-        <div class="ebook-card">
-          <h3>💰 maitriser les ETF</h3>
-          <p>Maîtrisez les bases des ETF pour booster votre patrimoine.</p>
-          <a href="ETF.html">Lire l'ebook</a>
-        </div>
-        <div class="ebook-card">
-          <h3>🤑 de 0 à des milliers d'eauros</h3>
-          <p>gagner de l'argent en partant de 0 c'est possible.</p>
-          <a href="0 à des milliers.html">Lire l'ebook</a>
-        </div>
+    <!-- Ebooks section -->
+    <section id="ebooks" aria-label="Liste d'ebooks">
+      <h2>Ebooks gratuits</h2>
+      <div class="ebook-grid">
+        <article class="ebook-card" tabindex="0">
+          <h3>Les bases de l'épargne</h3>
+          <p>Comprendre comment économiser facilement chaque mois.</p>
+          <a href="#" tabindex="0">Lire</a>
+        </article>
+        <article class="ebook-card" tabindex="0">
+          <h3>Investir en bourse</h3>
+          <p>Les premières étapes pour débuter en bourse sans stress.</p>
+          <a href="#" tabindex="0">Lire</a>
+        </article>
+        <article class="ebook-card" tabindex="0">
+          <h3>Gérer son budget</h3>
+          <p>Apprenez à contrôler vos dépenses et optimiser vos finances.</p>
+          <a href="#" tabindex="0">Lire</a>
+        </article>
       </div>
     </section>
 
-    <section id="contact">
-      <h2>Contactez-nous</h2>
-      <p>Des questions ? Des suggestions ? N’hésitez pas à nous écrire à <a href="mailto:contact@exemple.com">contact@exemple.com</a></p>
+    <!-- Contact section -->
+    <section id="contact" aria-label="Contact">
+      <h2>Contact</h2>
+      <p>Pour toute question, envoyez-nous un email à <a href="mailto:contact@financepro.fr">contact@financepro.fr</a></p>
     </section>
   </main>
 
-  <!-- Questionnaire Popup -->
-  <div id="questionnaire-overlay" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title">
-    <div id="questionnaire">
-      <button class="btn-close" aria-label="Fermer le questionnaire">✕ Fermer</button>
-      <h3 id="questionnaire-title">Questionnaire investissement</h3>
-
-      <form id="questionnaire-form">
-        <!-- Étape 1 -->
-        <div class="question-step" data-step="1">
-          <p>Quels métiers exercez-vous ? (plusieurs choix possibles)</p>
-          <label><input type="checkbox" name="metiers" value="salarié" /> Salarié</label>
-          <label><input type="checkbox" name="metiers" value="indépendant" /> Indépendant</label>
-          <label><input type="checkbox" name="metiers" value="étudiant" /> Étudiant</label>
-          <label><input type="checkbox" name="metiers" value="retraité" /> Retraité</label>
-          <button type="button" class="btn-next">Suivant</button>
-        </div>
-
-        <!-- Étape 2 -->
-        <div class="question-step" data-step="2" style="display:none;">
-          <label for="salaire">Quel est votre salaire mensuel net (€) ?</label>
-          <input type="number" id="salaire" name="salaire" min="0" step="100" required />
-          <button type="button" class="btn-next">Suivant</button>
-        </div>
-
-        <!-- Étape 3 -->
-        <div class="question-step" data-step="3" style="display:none;">
-          <label for="charges">Montant total des charges mensuelles (€) ?</label>
-          <input type="number" id="charges" name="charges" min="0" step="50" required />
-          <button type="submit" class="btn-next">Calculer</button>
-        </div>
-
-      </form>
-
-      <div id="result" aria-live="polite" role="region"></div>
-    </div>
-  </div>
-
-  <!-- Popup Email (existant) -->
-  <div id="popup-overlay" style="display:none;">
+  <!-- Popup email (existant) -->
+  <div id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title" style="display:none;">
     <div id="popup">
-      <h2>Inscrivez-vous à la newsletter</h2>
-      <p>Recevez nos conseils exclusifs directement dans votre boîte mail.</p>
-      <input type="email" placeholder="Votre email" />
-      <button>S'inscrire</button>
+      <h2 id="popup-title">Inscrivez-vous à notre newsletter</h2>
+      <p>Recevez nos conseils exclusifs pour mieux gérer votre argent.</p>
+      <input type="email" id="email-input" placeholder="Votre email" aria-label="Votre email" />
+      <button id="popup-submit-btn">S'inscrire</button>
     </div>
   </div>
+
+  <!-- Popup questionnaire -->
+  <div id="questionnaire-overlay" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title" aria-hidden="true">
+    <div id="questionnaire">
+      <h2 id="questionnaire-title">Questionnaire investissement</h2>
+      <form id="questionnaire-form" novalidate>
+        <!-- Étape 1 -->
+        <div class="step" data-step="1">
+          <p class="info-text">Choisissez votre ou vos métiers :</p>
+          <div class="checkbox-group" aria-label="Choix des métiers">
+            <label><input type="checkbox" name="metier" value="salarié" /> Salarié</label>
+            <label><input type="checkbox" name="metier" value="indépendant" /> Indépendant</label>
+            <label><input type="checkbox" name="metier" value="autoentrepreneur" /> Autoentrepreneur</label>
+            <label><input type="checkbox" name="metier" value="artisan" /> Artisan</label>
+            <label><input type="checkbox" name="metier" value="chômeur" /> Sans emploi</label>
+            <label><input type="checkbox" name="metier" value="autre" /> Autre</label>
+          </div>
+          <button type="button" class="btn-next" aria-label="Passer à l'étape suivante">Suivant</button>
+        </div>
+        <!-- Étape 2 -->
+        <div class="step" data-step="2" style="display:none;">
+          <label for="salary-input">Quel est votre salaire mensuel net (€) ?</label>
+          <input type="number" id="salary-input" name="salary" min="0" step="1" placeholder="Ex: 1800" aria-required="true" />
+          <button type="button" class="btn-next" aria-label="Passer à l'étape suivante">Suivant</button>
+        </div>
+        <!-- Étape 3 -->
+        <div class="step" data-step="3" style="display:none;">
+          <label for="charges-input">Quelles sont vos charges mensuelles totales (€) ?<br><small>(nourriture incluse)</small></label>
+          <input type="number" id="charges-input" name="charges" min="0" step="1" placeholder="Ex: 1300" aria-required="true" />
+          <button type="button" class="btn-next" aria-label="Voir le résultat">Voir le résultat</button>
+        </div>
+        <!-- Résultat -->
+        <div class="step" data-step="4" style="display:none;">
+          <p class="result" aria-live="polite"></p>
+          <button type="button" class="btn-close" aria-label="Fermer le questionnaire">Fermer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bouton menu (mobile) -->
+  <button id="menu-btn" aria-label="Ouvrir le menu">☰</button>
 
   <script>
-    // Menu mobile toggle
+    // Menu toggle mobile
     const menuBtn = document.getElementById('menu-btn');
-    const sidebar = document.getElementById('sidebar');
+    const nav = document.querySelector('nav');
+
     menuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+      nav.classList.toggle('open');
     });
 
     // Questionnaire popup
     const startBtn = document.getElementById('start-questionnaire-btn');
     const questionnaireOverlay = document.getElementById('questionnaire-overlay');
-    const closeBtn = document.querySelector('#questionnaire .btn-close');
-    const form = document.getElementById('questionnaire-form');
-    const steps = [...document.querySelectorAll('.question-step')];
-    const resultDiv = document.getElementById('result');
-
+    const questionnaireForm = document.getElementById('questionnaire-form');
+    const steps = questionnaireForm.querySelectorAll('.step');
     let currentStep = 0;
 
-    startBtn.addEventListener('click', () => {
-      questionnaireOverlay.style.display = 'flex';
-      currentStep = 0;
-      showStep(currentStep);
-      resultDiv.textContent = '';
-      document.body.style.overflow = 'hidden'; // bloquer scroll
-    });
-
-    closeBtn.addEventListener('click', () => {
-      questionnaireOverlay.style.display = 'none';
-      document.body.style.overflow = ''; // rétablir scroll
-    });
-
-    function showStep(step) {
-      steps.forEach((stepDiv, index) => {
-        stepDiv.style.display = index === step ? 'block' : 'none';
+    function showStep(index) {
+      steps.forEach((step, i) => {
+        step.style.display = i === index ? 'block' : 'none';
       });
+      // Accessibility: manage aria-hidden
+      if(index === 0) {
+        questionnaireOverlay.setAttribute('aria-hidden', 'false');
+      }
     }
 
-    steps.forEach((stepDiv, index) => {
-      const nextBtn = stepDiv.querySelector('.btn-next');
-      if (nextBtn && index < steps.length - 1) {
-        nextBtn.addEventListener('click', () => {
-          // Vérifier validations simples avant de passer à la suite
-          if (index === 0) {
-            const checked = stepDiv.querySelectorAll('input[type=checkbox]:checked');
-            if (checked.length === 0) {
-              alert("Veuillez sélectionner au moins un métier.");
-              return;
-            }
-          } else if (index === 1) {
-            const salaireInput = stepDiv.querySelector('input[type=number]');
-            if (!salaireInput.value || salaireInput.value <= 0) {
-              alert("Veuillez saisir un salaire valide.");
-              return;
-            }
+    startBtn.addEventListener('click', () => {
+      currentStep = 0;
+      showStep(currentStep);
+      questionnaireOverlay.style.display = 'flex';
+      // Focus first input or first checkbox
+      const firstStep = steps[0];
+      const firstInput = firstStep.querySelector('input, button');
+      if(firstInput) firstInput.focus();
+      // Prevent scroll behind
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Next buttons logic
+    questionnaireForm.addEventListener('click', (e) => {
+      if(e.target.classList.contains('btn-next')) {
+        e.preventDefault();
+        if(currentStep === 0) {
+          // Check at least one métier selected
+          const checked = questionnaireForm.querySelectorAll('input[name="metier"]:checked');
+          if(checked.length === 0) {
+            alert('Veuillez sélectionner au moins un métier.');
+            return;
           }
           currentStep++;
           showStep(currentStep);
-        });
+          questionnaireForm.querySelector('input[name="salary"]').focus();
+        } else if(currentStep === 1) {
+          // Validate salary
+          const salaryInput = questionnaireForm.querySelector('#salary-input');
+          if(!salaryInput.value || Number(salaryInput.value) < 0) {
+            alert('Veuillez entrer un salaire valide.');
+            salaryInput.focus();
+            return;
+          }
+          currentStep++;
+          showStep(currentStep);
+          questionnaireForm.querySelector('#charges-input').focus();
+        } else if(currentStep === 2) {
+          // Validate charges
+          const chargesInput = questionnaireForm.querySelector('#charges-input');
+          if(!chargesInput.value || Number(chargesInput.value) < 0) {
+            alert('Veuillez entrer des charges valides.');
+            chargesInput.focus();
+            return;
+          }
+          currentStep++;
+          showStep(currentStep);
+          // Calculer le résultat
+          const salary = Number(questionnaireForm.querySelector('#salary-input').value);
+          const charges = Number(questionnaireForm.querySelector('#charges-input').value);
+          const economiser = salary - charges;
+          let invest = 0;
+          if(economiser > 0) {
+            invest = economiser * 0.20;
+          }
+          const resultP = questionnaireForm.querySelector('.result');
+          if(invest > 0) {
+            resultP.textContent = `Vous pouvez investir environ ${invest.toFixed(2)} € par mois.`;
+          } else {
+            resultP.textContent = "D'après vos informations, vous ne semblez pas avoir de marge pour investir actuellement.";
+          }
+          questionnaireForm.querySelector('.btn-close').focus();
+        }
       }
     });
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      // Validation final input charges
-      const chargesInput = form.querySelector('input[name="charges"]');
-      if (!chargesInput.value || chargesInput.value < 0) {
-        alert("Veuillez saisir des charges valides.");
-        return;
+    // Close questionnaire
+    questionnaireForm.addEventListener('click', (e) => {
+      if(e.target.classList.contains('btn-close')) {
+        e.preventDefault();
+        questionnaireOverlay.style.display = 'none';
+        questionnaireOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = 'auto';
+        startBtn.focus();
       }
-
-      // Récupération des valeurs
-      const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
-      const salaire = parseFloat(form.salaire.value);
-      const charges = parseFloat(chargesInput.value);
-
-      // Calcul simplifié : épargne possible = salaire - charges
-      const epargneMensuelle = salaire - charges;
-      const epargneAnnuelle = epargneMensuelle * 12;
-
-      // Affichage résultat
-      if (epargneMensuelle <= 0) {
-        resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
-      } else {
-        resultDiv.innerHTML = `
-          <p>Selon vos réponses, vous pourriez investir environ :</p>
-          <ul>
-            <li><strong>${epargneMensuelle.toFixed(2)} €</strong> par mois</li>
-            <li><strong>${epargneAnnuelle.toFixed(2)} €</strong> par an</li>
-          </ul>
-          <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
-        `;
-      }
-
-      // Empêcher de fermer ou reset, on laisse ouvert
     });
 
+    // Accessibility: close questionnaire with Escape key
+    document.addEventListener('keydown', (e) => {
+      if(e.key === "Escape" && questionnaireOverlay.style.display === 'flex') {
+        questionnaireOverlay.style.display = 'none';
+        questionnaireOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = 'auto';
+        startBtn.focus();
+      }
+    });
   </script>
+
 </body>
 </html>
-
