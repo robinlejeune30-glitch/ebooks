@@ -382,10 +382,23 @@
   </div>
 
   <script>
-    // Pour gérer la fermeture de la popup après envoi du mail via Formspree
     const popupOverlay = document.getElementById('popup-overlay');
     const emailForm = document.getElementById('email-form');
 
+    // Fonction pour cacher la popup et réactiver le scroll
+    function hidePopup() {
+      popupOverlay.style.display = 'none';
+      document.body.style.overflowY = 'auto';
+    }
+
+    // Vérifie au chargement si l’utilisateur a déjà soumis son mail
+    if (localStorage.getItem('emailSubmitted')) {
+      hidePopup();
+    } else {
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Gestion du submit du formulaire
     emailForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -397,7 +410,6 @@
         return;
       }
 
-      // Envoi via fetch vers Formspree
       try {
         const formData = new FormData(emailForm);
         const response = await fetch(emailForm.action, {
@@ -410,8 +422,8 @@
 
         if (response.ok) {
           alert("Merci ! Votre email a été bien reçu.");
-          popupOverlay.style.display = 'none';
-          document.body.style.overflowY = 'auto'; // Rétablir scroll
+          localStorage.setItem('emailSubmitted', 'true'); // On enregistre le flag
+          hidePopup();
         } else {
           alert("Une erreur est survenue, veuillez réessayer.");
         }
@@ -420,9 +432,6 @@
       }
     });
 
-    // Empêche scroll tant que popup visible
-    document.body.style.overflow = 'hidden';
-
     // Menu toggle (responsive)
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
@@ -430,5 +439,6 @@
       sidebar.classList.toggle('open');
     });
   </script>
+
 </body>
 </html>
