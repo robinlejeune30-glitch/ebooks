@@ -537,18 +537,19 @@
     </div>
   </div>
   
-  // Compteur de visites local (stocké en localStorage)
-const visitCountSpan = document.getElementById('visit-count');
+<script>
+  const visitCountSpan = document.getElementById('visit-count');
 
-function incrementVisitCount() {
-  let count = localStorage.getItem('siteVisitCount');
-  count = count ? parseInt(count) : 0;
-  count++;
-  localStorage.setItem('siteVisitCount', count);
-  visitCountSpan.textContent = count;
-}
+  function incrementVisitCount() {
+    let count = localStorage.getItem('siteVisitCount');
+    count = count ? parseInt(count) : 0;
+    count++;
+    localStorage.setItem('siteVisitCount', count);
+    visitCountSpan.textContent = count;
+  }
 
-incrementVisitCount();
+  incrementVisitCount();
+</script>
 
   <script>
     // Menu mobile toggle
