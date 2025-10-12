@@ -186,7 +186,11 @@
     section#contact a:hover {
       text-decoration: underline;
     }
+<footer style="margin-top: 40px; max-width: 900px; color: #777; font-size: 1rem;">
+  Nombre de visites sur ce site : <span id="visit-count">0</span>
+</footer>
 
+    
     /* Centered question section */
     #questionnaire-start {
       max-width: 400px;
@@ -332,11 +336,16 @@
         padding: 10px 14px;
         border-radius: 8px;
         cursor: pointer;
-        z-index: 9999;
-        color: white;
-        font-weight: 700;
-        font-size: 1.1rem;
-        user-select: none;
+        z-index: 20;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        transition: background-color 0.3s ease;
+      }
+      #menu-btn:hover {
+        background-color: #d67a07;
+      }
+      #questionnaire {
+        max-width: 95vw;
+        padding: 20px;
       }
     }
     @media(min-width: 801px) {
@@ -345,232 +354,295 @@
       }
     }
 
-    /* Added view counter (top right) */
-    #view-counter {
+    /* --- Popup email --- */
+    #popup-overlay {
       position: fixed;
-      top: 15px;
-      right: 15px;
-      background: #f9b233;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
       z-index: 9999;
-      user-select: none;
+    }
+    #popup {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    #popup h2 {
+      margin-bottom: 15px;
+      color: #f39c12;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    #popup p {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      color: #555;
+    }
+    #popup input[type="email"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1.8px solid #f39c12;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+    #popup input[type="email"]:focus {
+      border-color: #d67a07;
+      outline: none;
+    }
+    #popup button {
+      background-color: #f39c12;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    #popup button:hover {
+      background-color: #d67a07;
     }
   </style>
 </head>
 <body>
-  <!-- Bouton menu mobile -->
-  <button id="menu-btn" aria-expanded="false" aria-controls="sidebar" aria-label="Ouvrir le menu navigation">Menu</button>
 
-  <!-- Sidebar navigation -->
-  <nav id="sidebar" aria-label="Navigation principale">
-    <h2>Comment gérer son argent</h2>
+  <button id="menu-btn" aria-label="Ouvrir le menu">☰ Menu</button>
+
+  <nav id="sidebar">
+    <h2>Mes Ebooks</h2>
     <ul>
       <li><a href="#ebooks" class="active">Ebooks</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#questionnaire-start">Questionnaire</a></li>
+      <li><a href="avis.html">Avis</a></li>
     </ul>
   </nav>
 
-  <!-- Compteur de vues en haut à droite -->
-  <div id="view-counter" aria-live="polite" aria-atomic="true">
-    👁️ Vues : <span id="counter">...</span>
-  </div>
-
   <main>
     <header>
-      <h1>Comment gérer son argent ?</h1>
-      <p class="description">Découvrez mes ebooks pour mieux gérer votre budget, économiser, et faire fructifier votre argent.</p>
-      <p class="sub-description">Suivez mes conseils, et prenez en main vos finances dès aujourd’hui !</p>
+      <h1>Comment gérer son argent</h1>
+      <p class="description">
+        Découvrez des conseils en développement personnel liés à l'argent, pour mieux gérer, investir intelligemment et atteindre la liberté financière.
+      </p>
+      <p class="sub-description">
+        Ce site vous propose une sélection d'ebooks complets, conçus pour vous aider à maîtriser votre argent et à investir de façon avisée. Pourquoi c’est important ? Parce que gérer son argent, c’est aussi gérer sa vie.
+      </p>
     </header>
 
-    <section id="ebooks" tabindex="-1" aria-label="Liste des ebooks">
-      <h2>Ebooks gratuits</h2>
-      <div class="ebook-grid">
-        <article class="ebook-card" tabindex="0" aria-labelledby="title1 desc1">
-          <h3 id="title1">Maîtriser son budget</h3>
-          <p id="desc1">Apprenez à gérer votre argent au quotidien pour éviter les fins de mois difficiles.</p>
-          <a href="ebooks/maitriser-son-budget.pdf" download> Télécharger</a>
-        </article>
+    <!-- Section ajoutée au centre pour la question + bouton -->
+    <section id="questionnaire-start" aria-label="Questionnaire d'investissement">
+      <h2>Tu ne sais pas combien investir ?</h2>
+      <button id="start-questionnaire-btn" aria-haspopup="dialog" aria-controls="questionnaire-overlay">Commencer le questionnaire</button>
+    </section>
 
-        <article class="ebook-card" tabindex="0" aria-labelledby="title2 desc2">
-          <h3 id="title2">Économiser sans se priver</h3>
-          <p id="desc2">Des astuces simples pour mettre de l'argent de côté sans frustration.</p>
-          <a href="ebooks/economiser-sans-se-priver.pdf" download> Télécharger</a>
-        </article>
-
-        <article class="ebook-card" tabindex="0" aria-labelledby="title3 desc3">
-          <h3 id="title3">Investir intelligemment</h3>
-          <p id="desc3">Comprenez les bases de l'investissement pour faire fructifier votre capital.</p>
-          <a href="ebooks/investir-intelligemment.pdf" download> Télécharger</a>
-        </article>
-
-        <article class="ebook-card" tabindex="0" aria-labelledby="title4 desc4">
-          <h3 id="title4">Comment devenir riche ?</h3>
-          <p id="desc4">Découvrez les habitudes des personnes qui réussissent financièrement.</p>
-          <a href="ebooks/comment-devenir-riche.pdf" download> Télécharger</a>
-        </article>
-
-        <article class="ebook-card" tabindex="0" aria-labelledby="title5 desc5">
-          <h3 id="title5">Gagner des euros en ligne</h3>
-          <p id="desc5">Les meilleures méthodes pour générer un revenu complémentaire sur Internet.</p>
-          <a href="ebooks/gagner-des-euros-en-ligne.pdf" download> Télécharger</a>
-        </article>
+    <section id="ebooks">
+      <h2>Nos Ebooks</h2>
+      <div class="ebook-grid" id="ebooks-list">
+        <div class="ebook-card">
+          <h3>📈 Investir en partant de 0</h3>
+          <p>Apprenez les bases de l’investissement, même sans capital initial. Stratégies, astuces et conseils pour débuter sereinement.</p>
+          <a href="investir0.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>💼 Gérer son argent comme un pro</h3>
+          <p>Apprenez à budgétiser, éviter les pièges financiers et faire des choix responsables avec votre argent.</p>
+          <a href="gerer-son-argent.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>🧠 Développement personnel & argent</h3>
+          <p>Comprenez la psychologie de l'argent, développez votre mentalité financière et dépassez vos blocages.</p>
+          <a href="developpement-personnel-argent.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>🚀 Marketing digital</h3>
+          <p>Maîtrisez les bases du marketing digital pour booster votre visibilité et vos ventes en ligne.</p>
+          <a href="marketing-digital.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>💰 maitriser les ETF</h3>
+          <p>Maîtrisez les bases des ETF pour booster votre patrimoine.</p>
+          <a href="ETF.html">Lire l'ebook</a>
+        </div>
+        <div class="ebook-card">
+          <h3>🤑 de 0 à des milliers d'euros</h3>
+          <p>gagner de l'argent en partant de 0 c'est possible.</p>
+          <a href="0 à des milliers.html">Lire l'ebook</a>
+        </div>
       </div>
     </section>
 
-    <section id="contact" tabindex="-1" aria-label="Section contact">
-      <h2>Contact</h2>
-      <p>Pour toute question, n'hésitez pas à me contacter à <a href="mailto:contact@exemple.com">contact@exemple.com</a>.</p>
-    </section>
-
-    <section id="questionnaire-start" tabindex="-1" aria-label="Démarrer le questionnaire">
-      <h2>Testez vos connaissances</h2>
-      <button id="start-questionnaire-btn" aria-haspopup="dialog" aria-controls="questionnaire">Démarrer</button>
+    <section id="contact">
+      <h2>Contactez-nous</h2>
+      <p>Des questions ? Des suggestions ? N’hésitez pas à nous écrire à <a href="mailto:contact@exemple.com">contact@exemple.com</a></p>
     </section>
   </main>
 
-  <!-- Popup questionnaire -->
-  <div id="questionnaire-overlay" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title" aria-describedby="questionnaire-desc">
+  <!-- Questionnaire Popup -->
+  <div id="questionnaire-overlay" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title">
     <div id="questionnaire">
-      <button class="btn-close" aria-label="Fermer le questionnaire">✖</button>
-      <h3 id="questionnaire-title">Questionnaire de gestion d'argent</h3>
-      <form id="quiz-form" novalidate>
+      <button class="btn-close" aria-label="Fermer le questionnaire">✕ Fermer</button>
+      <h3 id="questionnaire-title">Questionnaire investissement</h3>
+
+      <form id="questionnaire-form">
+        <!-- Étape 1 -->
         <div class="question-step" data-step="1">
-          <label>
-            <input type="checkbox" name="q1" value="budget" />
-            Suivez-vous un budget mensuel ?
-          </label>
+          <p>Quels métiers exercez-vous ? (plusieurs choix possibles)</p>
+          <label><input type="checkbox" name="metiers" value="salarié" /> Salarié</label>
+          <label><input type="checkbox" name="metiers" value="indépendant" /> Indépendant</label>
+          <label><input type="checkbox" name="metiers" value="étudiant" /> Étudiant</label>
+          <label><input type="checkbox" name="metiers" value="retraité" /> Retraité</label>
+          <button type="button" class="btn-next">Suivant</button>
         </div>
+
+        <!-- Étape 2 -->
         <div class="question-step" data-step="2" style="display:none;">
-          <label>
-            <input type="checkbox" name="q2" value="epargne" />
-            Avez-vous une épargne d'urgence ?
-          </label>
+          <label for="salaire">Quel est votre salaire mensuel net (€) ?</label>
+          <input type="number" id="salaire" name="salaire" min="0" step="100" required />
+          <button type="button" class="btn-next">Suivant</button>
         </div>
-        <div class="question-step" data-step="3" style="display:none;">
-          <label>
-            <input type="checkbox" name="q3" value="investissement" />
-            Investissez-vous régulièrement ?
-          </label>
-        </div>
-        <div class="question-step" data-step="4" style="display:none;">
-          <label for="q4-input">Combien d'argent mettez-vous de côté chaque mois (en euros) ?</label>
-          <input type="number" id="q4-input" name="q4" min="0" step="10" placeholder="Ex: 100" />
-        </div>
-        <button type="button" class="btn-next" aria-label="Passer à la question suivante">Suivant</button>
+
+       <!-- Étape 3 -->
+<div class="question-step" data-step="3" style="display:none;">
+  <label for="charges">Montant total des charges mensuelles (y compris nourriture) (€) ?</label>
+  <input type="number" id="charges" name="charges" min="0" step="50" required />
+  <button type="submit" class="btn-next">Calculer</button>
+</div>
+
+
       </form>
-      <div id="result" role="status" aria-live="polite"></div>
+
+      <div id="result" aria-live="polite" role="region"></div>
     </div>
   </div>
 
+  <!-- Popup Email (existant) -->
+  <div id="popup-overlay" style="display:none;">
+    <div id="popup">
+      <h2>Inscrivez-vous à la newsletter</h2>
+      <p>Recevez nos conseils exclusifs directement dans votre boîte mail.</p>
+      <input type="email" placeholder="Votre email" />
+      <button>S'inscrire</button>
+    </div>
+  </div>
+  
+  // Compteur de visites local (stocké en localStorage)
+const visitCountSpan = document.getElementById('visit-count');
+
+function incrementVisitCount() {
+  let count = localStorage.getItem('siteVisitCount');
+  count = count ? parseInt(count) : 0;
+  count++;
+  localStorage.setItem('siteVisitCount', count);
+  visitCountSpan.textContent = count;
+}
+
+incrementVisitCount();
+
   <script>
-    // Toggle sidebar on mobile
+    // Menu mobile toggle
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
-
     menuBtn.addEventListener('click', () => {
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!expanded));
       sidebar.classList.toggle('open');
     });
 
-    // View counter (CountAPI)
-    fetch('https://api.countapi.xyz/hit/tonsite.github.io/accueil')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('counter').innerText = data.value;
-      }).catch(() => {
-        document.getElementById('counter').innerText = 'N/A';
-      });
-
-    // Questionnaire logic
+    // Questionnaire popup
     const startBtn = document.getElementById('start-questionnaire-btn');
-    const overlay = document.getElementById('questionnaire-overlay');
+    const questionnaireOverlay = document.getElementById('questionnaire-overlay');
     const closeBtn = document.querySelector('#questionnaire .btn-close');
-    const form = document.getElementById('quiz-form');
-    const steps = form.querySelectorAll('.question-step');
-    const nextBtn = form.querySelector('.btn-next');
+    const form = document.getElementById('questionnaire-form');
+    const steps = [...document.querySelectorAll('.question-step')];
     const resultDiv = document.getElementById('result');
 
     let currentStep = 0;
 
     startBtn.addEventListener('click', () => {
-      overlay.style.display = 'flex';
+      questionnaireOverlay.style.display = 'flex';
       currentStep = 0;
       showStep(currentStep);
-      resultDiv.innerText = '';
-      form.reset();
-      nextBtn.textContent = 'Suivant';
-      nextBtn.disabled = false;
-      // Focus first checkbox or input on show
-      focusCurrentStep();
+      resultDiv.textContent = '';
+      document.body.style.overflow = 'hidden'; // bloquer scroll
     });
 
     closeBtn.addEventListener('click', () => {
-      overlay.style.display = 'none';
-      startBtn.focus();
+      questionnaireOverlay.style.display = 'none';
+      document.body.style.overflow = ''; // rétablir scroll
     });
 
-    function showStep(n) {
-      steps.forEach((step, i) => {
-        step.style.display = i === n ? 'block' : 'none';
+    function showStep(step) {
+      steps.forEach((stepDiv, index) => {
+        stepDiv.style.display = index === step ? 'block' : 'none';
       });
-      // Change button text on last step
-      if (n === steps.length -1) {
-        nextBtn.textContent = 'Terminer';
-      } else {
-        nextBtn.textContent = 'Suivant';
-      }
     }
 
-    nextBtn.addEventListener('click', () => {
-      // If last step, calculate result
-      if (currentStep === steps.length -1) {
-        calculateResult();
-      } else {
-        currentStep++;
-        showStep(currentStep);
-        focusCurrentStep();
+    steps.forEach((stepDiv, index) => {
+      const nextBtn = stepDiv.querySelector('.btn-next');
+      if (nextBtn && index < steps.length - 1) {
+        nextBtn.addEventListener('click', () => {
+          // Vérifier validations simples avant de passer à la suite
+          if (index === 0) {
+            const checked = stepDiv.querySelectorAll('input[type=checkbox]:checked');
+            if (checked.length === 0) {
+              alert("Veuillez sélectionner au moins un métier.");
+              return;
+            }
+          } else if (index === 1) {
+            const salaireInput = stepDiv.querySelector('input[type=number]');
+            if (!salaireInput.value || salaireInput.value <= 0) {
+              alert("Veuillez saisir un salaire valide.");
+              return;
+            }
+          }
+          currentStep++;
+          showStep(currentStep);
+        });
       }
     });
 
-    function focusCurrentStep() {
-      const inputs = steps[currentStep].querySelectorAll('input');
-      if(inputs.length > 0) {
-        inputs[0].focus();
-      }
-    }
+   form.addEventListener('submit', e => {
+  e.preventDefault();
+  const chargesInput = form.querySelector('input[name="charges"]');
+  if (!chargesInput.value || chargesInput.value < 0) {
+    alert("Veuillez saisir des charges valides.");
+    return;
+  }
 
-    function calculateResult() {
-      // Simple scoring based on checked boxes and amount
-      let score = 0;
-      const q1 = form.querySelector('input[name="q1"]').checked;
-      const q2 = form.querySelector('input[name="q2"]').checked;
-      const q3 = form.querySelector('input[name="q3"]').checked;
-      const q4 = parseInt(form.q4.value) || 0;
+  const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
+  const salaire = parseFloat(form.salaire.value);
+  const charges = parseFloat(chargesInput.value);
 
-      if (q1) score++;
-      if (q2) score++;
-      if (q3) score++;
-      if (q4 >= 100) score++;
-      else if (q4 > 0) score += 0.5;
+  const epargneMensuelle = salaire - charges;
 
-      let message = '';
-      if (score === 4) {
-        message = "Bravo ! Vous gérez très bien votre argent.";
-      } else if (score >= 2) {
-        message = "Vous avez de bonnes habitudes, mais il y a encore place à l'amélioration.";
-      } else {
-        message = "Il serait bon de revoir votre gestion financière pour plus de sécurité.";
-      }
+  if (epargneMensuelle <= 0) {
+    resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
+  } else {
+    // Investissement = 20% de l'épargne
+    const investissementMensuel = epargneMensuelle * 0.20;
+    const investissementAnnuel = investissementMensuel * 12;
 
-      resultDiv.textContent = message;
-      nextBtn.disabled = true;
-    }
+    resultDiv.innerHTML = `
+      <p>Selon vos réponses, vous pourriez investir environ 20% de votre épargne mensuelle :</p>
+      <ul>
+        <li><strong>${investissementMensuel.toFixed(2)} €</strong> par mois</li>
+        <li><strong>${investissementAnnuel.toFixed(2)} €</strong> par an</li>
+      </ul>
+      <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
+    `;
+  }
+});
+
   </script>
 </body>
 </html>
