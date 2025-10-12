@@ -537,31 +537,119 @@
     </div>
   </div>
   
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Questionnaire et compteur de visites</title>
+  <style>
+    /* Styles basiques */
+    #visit-count {
+      font-weight: bold;
+      color: #007bff;
+    }
+    #questionnaire-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #questionnaire {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      max-width: 400px;
+      width: 90%;
+    }
+    .btn-close {
+      cursor: pointer;
+      background: #ff5c5c;
+      border: none;
+      padding: 5px 10px;
+      color: white;
+      border-radius: 3px;
+      float: right;
+    }
+    .question-step {
+      display: none;
+    }
+  </style>
+</head>
+<body>
 
+  <h1>Bienvenue sur le site</h1>
+  <p>Nombre de visites sur ce navigateur : <span id="visit-count">0</span></p>
+
+  <button id="menu-btn">Toggle Menu</button>
+  <div id="sidebar" style="display:none; border:1px solid #ccc; padding:10px; margin-top:10px;">
+    Menu / Sidebar Content
+  </div>
+
+  <button id="start-questionnaire-btn">Commencer le questionnaire</button>
+
+  <div id="questionnaire-overlay">
+    <div id="questionnaire">
+      <button class="btn-close">X</button>
+
+      <form id="questionnaire-form">
+
+        <div class="question-step">
+          <h3>Choisissez vos métiers préférés</h3>
+          <label><input type="checkbox" name="metiers" value="dev"> Développeur</label><br>
+          <label><input type="checkbox" name="metiers" value="designer"> Designer</label><br>
+          <label><input type="checkbox" name="metiers" value="chef"> Chef de projet</label><br>
+          <button type="button" class="btn-next">Suivant</button>
+        </div>
+
+        <div class="question-step">
+          <h3>Entrez votre salaire mensuel (€)</h3>
+          <input type="number" name="salaire" min="0" />
+          <button type="button" class="btn-next">Suivant</button>
+        </div>
+
+        <div class="question-step">
+          <h3>Entrez vos charges mensuelles (€)</h3>
+          <input type="number" name="charges" min="0" />
+          <button type="submit">Valider</button>
+        </div>
+
+      </form>
+
+      <div id="result" style="margin-top:15px; font-weight:bold;"></div>
+    </div>
+  </div>
 
   <script>
-    
-  const visitCountSpan = document.getElementById('visit-count');
+    // COMPTEUR DE VISITES - Fonctionnel
+    const visitCountSpan = document.getElementById('visit-count');
 
-  function incrementVisitCount() {
-    let count = localStorage.getItem('siteVisitCount');
-    count = count ? parseInt(count) : 0;
-    count++;
-    localStorage.setItem('siteVisitCount', count);
-    visitCountSpan.textContent = count;
-  }
+    function incrementVisitCount() {
+      // Récupérer le compteur actuel
+      let count = localStorage.getItem('siteVisitCount');
+      count = count ? parseInt(count, 10) : 0;
+      count++;
+      localStorage.setItem('siteVisitCount', count);
+      visitCountSpan.textContent = count;
+    }
 
-  incrementVisitCount();
+    incrementVisitCount();
 
-
-    // Menu mobile toggle
+    // MENU MOBILE TOGGLE
     const menuBtn = document.getElementById('menu-btn');
     const sidebar = document.getElementById('sidebar');
     menuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+      if (sidebar.style.display === 'none') {
+        sidebar.style.display = 'block';
+      } else {
+        sidebar.style.display = 'none';
+      }
     });
 
-    // Questionnaire popup
+    // QUESTIONNAIRE POPUP
     const startBtn = document.getElementById('start-questionnaire-btn');
     const questionnaireOverlay = document.getElementById('questionnaire-overlay');
     const closeBtn = document.querySelector('#questionnaire .btn-close');
@@ -570,6 +658,12 @@
     const resultDiv = document.getElementById('result');
 
     let currentStep = 0;
+
+    function showStep(step) {
+      steps.forEach((stepDiv, index) => {
+        stepDiv.style.display = index === step ? 'block' : 'none';
+      });
+    }
 
     startBtn.addEventListener('click', () => {
       questionnaireOverlay.style.display = 'flex';
@@ -584,17 +678,10 @@
       document.body.style.overflow = ''; // rétablir scroll
     });
 
-    function showStep(step) {
-      steps.forEach((stepDiv, index) => {
-        stepDiv.style.display = index === step ? 'block' : 'none';
-      });
-    }
-
     steps.forEach((stepDiv, index) => {
       const nextBtn = stepDiv.querySelector('.btn-next');
       if (nextBtn && index < steps.length - 1) {
         nextBtn.addEventListener('click', () => {
-          // Vérifier validations simples avant de passer à la suite
           if (index === 0) {
             const checked = stepDiv.querySelectorAll('input[type=checkbox]:checked');
             if (checked.length === 0) {
@@ -614,38 +701,38 @@
       }
     });
 
-   form.addEventListener('submit', e => {
-  e.preventDefault();
-  const chargesInput = form.querySelector('input[name="charges"]');
-  if (!chargesInput.value || chargesInput.value < 0) {
-    alert("Veuillez saisir des charges valides.");
-    return;
-  }
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const chargesInput = form.querySelector('input[name="charges"]');
+      if (!chargesInput.value || chargesInput.value < 0) {
+        alert("Veuillez saisir des charges valides.");
+        return;
+      }
 
-  const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
-  const salaire = parseFloat(form.salaire.value);
-  const charges = parseFloat(chargesInput.value);
+      const metiersChecked = Array.from(form.querySelectorAll('input[name="metiers"]:checked')).map(i => i.value);
+      const salaire = parseFloat(form.salaire.value);
+      const charges = parseFloat(chargesInput.value);
 
-  const epargneMensuelle = salaire - charges;
+      const epargneMensuelle = salaire - charges;
 
-  if (epargneMensuelle <= 0) {
-    resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
-  } else {
-    // Investissement = 20% de l'épargne
-    const investissementMensuel = epargneMensuelle * 0.20;
-    const investissementAnnuel = investissementMensuel * 12;
+      if (epargneMensuelle <= 0) {
+        resultDiv.textContent = "D'après vos informations, vous ne pouvez pas investir pour le moment.";
+      } else {
+        // Investissement = 20% de l'épargne
+        const investissementMensuel = epargneMensuelle * 0.20;
+        const investissementAnnuel = investissementMensuel * 12;
 
-    resultDiv.innerHTML = `
-      <p>Selon vos réponses, vous pourriez investir environ 20% de votre épargne mensuelle :</p>
-      <ul>
-        <li><strong>${investissementMensuel.toFixed(2)} €</strong> par mois</li>
-        <li><strong>${investissementAnnuel.toFixed(2)} €</strong> par an</li>
-      </ul>
-      <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
-    `;
-  }
-});
-
+        resultDiv.innerHTML = `
+          <p>Selon vos réponses, vous pourriez investir environ 20% de votre épargne mensuelle :</p>
+          <ul>
+            <li><strong>${investissementMensuel.toFixed(2)} €</strong> par mois</li>
+            <li><strong>${investissementAnnuel.toFixed(2)} €</strong> par an</li>
+          </ul>
+          <p>Considérez toujours vos priorités et vos besoins avant d’investir.</p>
+        `;
+      }
+    });
   </script>
+
 </body>
 </html>
